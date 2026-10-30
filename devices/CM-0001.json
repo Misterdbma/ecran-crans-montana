@@ -1,0 +1,94 @@
+{
+  "code": "CM-0001",
+  "resort": "crans-montana",
+  "agency": "",
+  "place": "Crans-Montana · 1500 m",
+  "logo": "",
+  "accent": "",
+  "lang": "fr",
+  "concierge": {
+    "demo": true,
+    "tel": "",
+    "whatsapp": "+41 00 000 00 00",
+    "email": "",
+    "hours": {
+      "fr": "",
+      "en": "",
+      "de": ""
+    },
+    "services": [
+      {
+        "fr": "Chef à domicile",
+        "de": "Privatkoch",
+        "sde": "Abendessen bei Ihnen serviert",
+        "mde": "Guten Tag, wir wünschen einen Privatkoch. Datum: ... Anzahl Gäste: ...",
+        "en": "Private chef",
+        "sfr": "Dîner servi chez vous",
+        "sen": "Dinner served at home",
+        "mfr": "Bonjour, nous aimerions un chef à domicile. Date : ... Nombre de convives : ...",
+        "men": "Hello, we would like a private chef. Date: ... Number of guests: ...",
+        "id": "CHEF"
+      },
+      {
+        "fr": "Moniteur de ski privé",
+        "de": "Privater Skilehrer",
+        "sde": "Privatstunden, alle Niveaus",
+        "mde": "Guten Tag, wir wünschen einen privaten Skilehrer. Daten: ... Personen und Niveau: ...",
+        "en": "Private ski instructor",
+        "sfr": "Cours particuliers, tous niveaux",
+        "sen": "Private lessons, all levels",
+        "mfr": "Bonjour, nous aimerions un moniteur de ski privé. Dates : ... Personnes et niveau : ...",
+        "men": "Hello, we would like a private ski instructor. Dates: ... People and level: ...",
+        "id": "SKI"
+      },
+      {
+        "fr": "Transferts",
+        "de": "Transfers",
+        "sde": "Genf, Sitten · Chauffeur oder Helikopter",
+        "mde": "Guten Tag, wir möchten einen Transfer organisieren. Strecke: ... Datum und Uhrzeit: ... Passagiere und Gepäck: ...",
+        "en": "Transfers",
+        "sfr": "Genève, Sion · chauffeur ou hélicoptère",
+        "sen": "Geneva, Sion · chauffeur or helicopter",
+        "mfr": "Bonjour, nous aimerions organiser un transfert. Trajet : ... Date et heure : ... Passagers et bagages : ...",
+        "men": "Hello, we would like to arrange a transfer. Route: ... Date and time: ... Passengers and luggage: ...",
+        "id": "TRANSFERT"
+      },
+      {
+        "fr": "Table au restaurant",
+        "de": "Restaurantreservierung",
+        "sde": "Wir reservieren für Sie",
+        "mde": "Guten Tag, können Sie einen Tisch reservieren? Restaurant: ... Datum und Uhrzeit: ... Personen: ...",
+        "en": "Restaurant booking",
+        "sfr": "Nous réservons pour vous",
+        "sen": "We book for you",
+        "mfr": "Bonjour, pouvez-vous nous réserver une table ? Restaurant souhaité : ... Date et heure : ... Personnes : ...",
+        "men": "Hello, could you book us a table? Restaurant: ... Date and time: ... Guests: ...",
+        "id": "RESTAURANT"
+      },
+      {
+        "fr": "Spa et massage",
+        "de": "Spa und Massage",
+        "sde": "Im Spa oder bei Ihnen",
+        "mde": "Guten Tag, wir wünschen eine Behandlung oder Massage. Datum: ... Anzahl Personen: ...",
+        "en": "Spa and massage",
+        "sfr": "Au spa ou chez vous",
+        "sen": "At a spa or at home",
+        "mfr": "Bonjour, nous aimerions un soin ou un massage. Date : ... Nombre de personnes : ...",
+        "men": "Hello, we would like a treatment or massage. Date: ... Number of people: ...",
+        "id": "SPA"
+      },
+      {
+        "fr": "Location de ski livrée",
+        "de": "Skimiete mit Lieferung",
+        "sde": "Ausrüstung geliefert und angepasst",
+        "mde": "Guten Tag, wir möchten Skiausrüstung geliefert bekommen. Daten: ... Personen, Grössen und Schuhgrössen: ...",
+        "en": "Ski rental delivered",
+        "sfr": "Matériel apporté et ajusté",
+        "sen": "Equipment brought and fitted",
+        "mfr": "Bonjour, nous aimerions louer du matériel de ski livré. Dates : ... Personnes, tailles et pointures : ...",
+        "men": "Hello, we would like ski equipment delivered. Dates: ... People, heights and shoe sizes: ...",
+        "id": "LOCATION-SKI"
+      }
+    ]
+  }
+}

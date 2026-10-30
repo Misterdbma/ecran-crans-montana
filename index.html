@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crans-Montana">
+<meta name="theme-color" content="#0e151d">
+<title>Crans-Montana</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800&family=Public+Sans:wght@400;500;600&display=swap">
+<style>html,body{margin:0;padding:0;background:#0e151d}[hidden]{display:none!important}</style>
+<style>
+/* Layout: écran d'ardoise de chalet, horloge et météo à gauche, agenda à droite. Thème sombre unique (écran allumé en permanence). */
+:root{
+  --bg:#0e151d; --panel:#16212d; --line:#243344;
+  --fg:#e9eef2; --muted:#8c9cad; --snow:#ffffff;
+  --larch:#d8a347; --larch-soft:rgba(216,163,71,.14);
+  --sky:#7fb4d6; --ok:#7cc29a;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-gap:18px;max-width:1280px;margin:0 auto}
+@media (max-width:760px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.col{display:grid;grid-gap:18px;align-content:start;min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 10px}
+.top{display:grid;grid-template-columns:1fr auto;align-items:start;grid-gap:10px}
+.lang{display:grid;grid-template-columns:auto auto auto;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{background:transparent;border:0;color:var(--muted);font:600 12px var(--body);letter-spacing:.08em;padding:6px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--larch);color:var(--bg)}
+.lang button:focus-visible{outline:2px solid var(--sky);outline-offset:-2px}
+.clock{font-family:var(--display);font-weight:800;font-size:clamp(72px,13vw,132px);line-height:.9;letter-spacing:.01em;color:var(--snow);font-variant-numeric:tabular-nums}
+.date{font-family:var(--display);font-weight:500;font-size:26px;color:var(--larch);text-transform:capitalize;margin-top:6px}
+.place{color:var(--muted);font-size:13px;margin-top:2px}
+.now{display:grid;grid-template-columns:auto 1fr;grid-gap:14px;align-items:center}
+.now svg{width:64px;height:64px}
+.now .t{font-family:var(--display);font-weight:700;font-size:48px;line-height:1}
+.now .d{color:var(--muted);font-size:14px}
+.days{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-gap:6px;margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.day{text-align:center;font-size:12px;color:var(--muted)}
+.day b{display:block;color:var(--fg);font-weight:600;text-transform:capitalize}
+.day svg{width:30px;height:30px;display:block;margin:4px auto}
+.day .mx{color:var(--fg);font-variant-numeric:tabular-nums}
+.cd{display:grid;grid-gap:10px}
+.cdrow{display:grid;grid-template-columns:auto 1fr;grid-gap:12px;align-items:baseline}
+.cdn{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;color:var(--larch);min-width:2.2ch;text-align:right;font-variant-numeric:tabular-nums}
+.cdl{font-size:14px}
+.cdl small{display:block;color:var(--muted);font-size:12px}
+h2{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;margin:0 0 12px;letter-spacing:.01em;text-wrap:balance}
+.ev{display:grid;grid-template-columns:4px 1fr;grid-gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.ev:first-of-type{border-top:0}
+.ev .bar{border-radius:2px;background:var(--line)}
+.ev.event .bar{background:var(--larch)}
+.ev.offer .bar{background:var(--sky)}
+.ev.outdoor .bar{background:var(--ok)}
+.ev h3{margin:0;font-size:16px;font-weight:600;line-height:1.3}
+.ev p{margin:2px 0 0;color:var(--muted);font-size:13px}
+.tag.gold{background:var(--larch-soft);color:var(--larch)}
+.ev.exp .bar{background:linear-gradient(180deg,#f2d38a,var(--larch))}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(127,180,214,.14);color:var(--sky);margin-left:6px;vertical-align:2px}
+.dayhead{font-family:var(--display);font-weight:700;font-size:18px;color:var(--larch);text-transform:capitalize;margin:14px 0 2px}
+.dayhead:first-child{margin-top:0}
+.empty{color:var(--muted);font-size:14px;padding:6px 0}
+.legend{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;grid-gap:4px 16px;font-size:12px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.foot{grid-column:1/-1;color:var(--muted);font-size:12px;text-align:center}
+.stale{color:var(--larch)}
+/* Golf et remontées */
+.mtn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-gap:10px;padding:10px}
+.tile{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-gap:12px;align-items:center;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.015);color:var(--fg);text-align:left;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tile:active{background:rgba(255,255,255,.05)}
+.tile::after{content:"\203A";font-size:22px;line-height:1;color:var(--muted)}
+.tile svg{width:30px;height:30px;color:var(--larch)}
+.tile b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tile .st{display:grid;grid-template-columns:auto minmax(0,1fr);grid-gap:7px;align-items:center;font-size:15px;font-weight:600;margin-top:2px}
+.tile .st span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .st i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.tile.open .st i{background:var(--ok);box-shadow:0 0 0 3px rgba(124,194,154,.18)}
+.tile.closed .st i{background:var(--larch);box-shadow:0 0 0 3px var(--larch-soft)}
+.tile.partial .st i{background:var(--sky)}
+.tile.warn .st i{background:var(--larch);box-shadow:0 0 0 3px var(--larch-soft)}
+.tile.alert .st i{background:#e0795b;box-shadow:0 0 0 3px rgba(224,121,91,.2)}
+.sheet .wxroad{margin:0 0 16px;display:grid;grid-gap:8px}
+.sheet .wxroad .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0}
+.sheet .wxroad .r{display:grid;grid-template-columns:auto 7.5em minmax(0,1fr);grid-gap:10px;align-items:baseline;font-size:15px}
+.sheet .wxroad .r i{width:9px;height:9px;border-radius:50%;background:var(--ok);align-self:center}
+.sheet .wxroad .r.l1 i{background:var(--larch)}
+.sheet .wxroad .r.l2 i{background:#e0795b}
+.sheet .wxroad .r b{font-weight:600;color:var(--snow)}
+.tile:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.sheet .rows{display:grid;grid-template-columns:1fr auto;grid-gap:0 16px;margin:0 0 16px;border-top:1px solid var(--line)}
+.sheet .rows dt,.sheet .rows dd{margin:0;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.sheet .rows dd{text-align:right;font-weight:600;font-variant-numeric:tabular-nums;color:var(--snow)}
+.sheet .prog{margin:0 0 14px}
+.sheet .prog h4{font-family:var(--display);font-weight:700;font-size:18px;color:var(--larch);text-transform:capitalize;margin:10px 0 4px}
+.sheet .prog .row{display:grid;grid-template-columns:3.4em minmax(0,1fr) auto;grid-gap:12px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line);font-size:15px}
+.sheet .prog .row b{font-variant-numeric:tabular-nums;color:var(--snow)}
+.sheet .prog .row small{color:var(--muted);font-size:12px}
+.sheet .price{margin:0 0 16px;font-size:14px;color:var(--fg);background:var(--larch-soft);border-radius:8px;padding:8px 12px}
+/* Aujourd'hui en version compacte */
+.p-today .ev{padding:6px 0;grid-gap:10px}
+.p-today .ev h3{font-size:14px}
+.p-today .ev p{font-size:12px}
+.p-today .ev .more{font-size:18px}
+.subhead{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--larch);margin:12px 0 2px;padding-top:10px;border-top:1px dashed var(--line)}
+.subhead+.ev{border-top:0}
+/* Conciergerie */
+.cgwrap{display:grid;grid-template-columns:minmax(0,1fr) 200px;grid-gap:18px;align-items:start}
+.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-gap:10px}
+.svc-b{display:grid;grid-gap:4px;align-content:start;text-align:left;padding:14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02);color:var(--fg);font:inherit;cursor:pointer;min-height:84px;-webkit-tap-highlight-color:transparent;transition:border-color .2s,background .2s}
+.svc-b b{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.1;color:var(--snow)}
+.svc-b small{font-size:12px;color:var(--muted);line-height:1.3}
+.svc-b.on{border-color:var(--larch);background:var(--larch-soft)}
+.svc-b.on b{color:var(--larch)}
+.svc-b:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.cgqr{display:grid;justify-items:center;text-align:center;grid-gap:8px;padding:14px;border:1px solid rgba(216,163,71,.45);border-radius:14px;background:linear-gradient(160deg,rgba(216,163,71,.12),rgba(216,163,71,.02))}
+.cgqr .qr{width:150px;padding:8px}
+.cgqr p{margin:0;font-size:13px;line-height:1.35}
+.cgqr p b{color:var(--larch)}
+.cgqr .hrs{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:760px){.cgwrap{grid-template-columns:minmax(0,1fr)}.svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.concierge{padding:10px;background:linear-gradient(135deg,rgba(216,163,71,.10),rgba(216,163,71,.02)) var(--panel);border-color:rgba(216,163,71,.35)}
+.concierge{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);grid-template-rows:auto auto;grid-gap:6px 8px}
+.concierge #cg-btn{grid-row:1/3}
+.concierge .wc-btn{min-height:0;padding:7px 10px}
+.concierge .wc-btn small{display:none}
+.concierge .wc-btn svg{width:22px;height:22px}
+.concierge .cg-btn.wc-btn b{font-size:13px;letter-spacing:.12em}
+.rests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-gap:10px;margin:6px 0 0}
+.rest{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-gap:4px 12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)}
+.rest .qr{width:70px;padding:4px;grid-row:1/5;grid-column:2}
+.rest b{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.1;color:var(--snow)}
+.rest .aw{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--larch)}
+.rest p{margin:0;font-size:13px;color:var(--fg);line-height:1.35}
+.rest .hr{color:var(--muted);font-size:12px}
+.rest .tl{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--snow)}
+@media (max-width:640px){.rests{grid-template-columns:minmax(0,1fr)}}
+.wc-btn b{font-size:18px;letter-spacing:.16em}
+.wc-btn small{letter-spacing:.04em}
+.wc-btn{grid-gap:10px;padding:12px 12px;grid-template-columns:auto 1fr}
+.cg-btn.wc-btn::after{content:none}
+.wc-btn svg{width:30px;height:30px}
+.sheet.wide{max-width:980px}
+.cams{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-gap:12px;margin:6px 0 0}
+.cam{margin:0;display:grid;grid-template-rows:auto auto 1fr auto;justify-items:center;text-align:center;grid-gap:6px;padding:16px 12px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)}
+.cam .ct{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--larch)}
+.cam b{font-weight:600;font-size:15px;line-height:1.25;color:var(--snow);align-self:start;min-height:2.5em}
+.cam .qr{width:100%;max-width:150px;padding:8px;margin-top:4px}
+.cam small{color:var(--muted);font-size:10px;line-height:1.3}
+@media (max-width:640px){.cams{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.live{display:inline-grid;grid-template-columns:auto auto;grid-gap:6px;align-items:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#e0795b;font-weight:600}
+.live i{width:7px;height:7px;border-radius:50%;background:#e0795b;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.cg-btn{width:100%;height:100%;min-height:58px;display:grid;grid-template-columns:auto 1fr auto;grid-gap:14px;align-items:center;text-align:left;padding:12px 16px;border:1px solid rgba(216,163,71,.55);border-radius:10px;background:transparent;color:var(--larch);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s}
+.cg-btn::after{content:"\203A";font-size:26px;line-height:1;color:var(--larch)}
+.cg-btn:active{background:var(--larch-soft)}
+.cg-btn svg{width:34px;height:34px}
+.cg-btn b{display:block;font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.22em;text-transform:uppercase;color:var(--snow);line-height:1.1}
+.cg-btn small{display:block;font-size:12px;letter-spacing:.08em;color:var(--larch);margin-top:3px}
+.cg-btn:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.sheet .services{margin:0 0 16px;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-gap:8px 16px}
+.sheet .services li{font-size:15px;padding-left:16px;position:relative}
+.sheet .services li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--larch)}
+/* Fiche détaillée d'une activité */
+.ev{cursor:pointer;grid-template-columns:4px 1fr auto;-webkit-tap-highlight-color:transparent;border-radius:6px;transition:background .15s}
+.ev:active{background:rgba(255,255,255,.04)}
+.ev .more{align-self:center;color:var(--muted);font-size:22px;line-height:1;padding-right:2px}
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px 16px;background:rgba(6,10,14,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:fade .18s ease-out}
+.modal[hidden]{display:none}
+.sheet{position:relative;box-sizing:border-box;width:100%;max-width:620px;max-height:calc(100dvh - 48px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px 26px 22px;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:rise .22s ease-out}
+.sheet .kind{display:grid;grid-template-columns:auto auto;justify-content:start;align-items:center;grid-gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 40px 10px 0}
+.sheet .kind i{width:10px;height:10px;border-radius:2px;background:var(--line)}
+.sheet .kind.event i{background:var(--larch)} .sheet .kind.offer i{background:var(--sky)} .sheet .kind.outdoor i{background:var(--ok)}
+.sheet h2{font-size:34px;margin:0 40px 6px 0}
+.sheet .when{font-family:var(--display);font-weight:500;font-size:20px;color:var(--larch);margin:0 0 4px}
+.sheet .detail{color:var(--muted);margin:0 0 14px}
+.sheet .desc{margin:0 0 16px;font-size:16px}
+.sheet .warn{margin:0 0 16px;font-size:13px;color:var(--sky)}
+.contact{display:grid;grid-template-columns:1fr auto;grid-gap:18px;align-items:center;border-top:1px solid var(--line);padding-top:16px}
+.contact .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 6px}
+.contact .line{font-size:16px;margin:2px 0;word-break:break-word}
+.contact .line b{font-weight:600;font-variant-numeric:tabular-nums}
+.qr{background:#fff;border-radius:10px;padding:8px;width:116px}
+.qr svg{display:block;width:100%;height:auto}
+.qr small{display:block;text-align:center;color:#3a4654;font-size:10px;line-height:1.2;margin-top:4px}
+.x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);font-size:22px;line-height:1;cursor:pointer}
+.close{display:block;width:100%;margin-top:18px;padding:13px;border:0;border-radius:12px;background:var(--larch);color:var(--bg);font:700 15px var(--body);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.x:focus-visible,.close:focus-visible,.ev:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@media (max-width:520px){.contact{grid-template-columns:1fr}.qr{display:none}.sheet h2{font-size:28px}}
+@media (prefers-reduced-motion:reduce){.modal,.sheet{animation:none}}
+.status{display:inline-grid;grid-template-columns:auto auto;grid-gap:7px;align-items:center;margin-top:10px;padding:4px 11px 4px 9px;border:1px solid var(--line);border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.status.ok i{background:var(--ok);box-shadow:0 0 0 3px rgba(124,194,154,.18)}
+.status.ok{color:var(--ok)}
+.status.ko i{background:var(--larch);box-shadow:0 0 0 3px var(--larch-soft)}
+.status.ko{color:var(--larch)}
+/* Mode écran fixe (tablette, paysage ou portrait) : tout tient dans l'écran, les listes longues défilent seules */
+@media (min-width:761px){
+  html,body{height:100%;overflow:hidden}
+  .wrap{height:100vh;height:100dvh;box-sizing:border-box;grid-template-rows:minmax(0,1fr) auto;padding-block:14px;grid-gap:14px}
+  .col{min-height:0;grid-gap:14px}
+  .col-r{grid-template-rows:auto minmax(0,1fr) minmax(0,1fr);align-content:stretch}
+  .col-l{display:flex;flex-direction:column;gap:14px}
+  .col-l>.panel{flex:0 0 auto}
+  .col-l>.p-today{flex:1 1 auto;min-height:0}
+  .col-l>.concierge{margin-top:auto}
+  .panel{padding:14px 18px}
+  .fit{display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0}
+  .scroll{overflow:hidden;touch-action:none;min-height:0;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent)}
+  .p-today{grid-template-rows:auto minmax(0,1fr)}
+  .clock{font-size:clamp(56px,min(12vw,12vh),120px)}
+  .date{font-size:22px;margin-top:4px}
+  .col-l>.panel:first-child{position:relative}
+  .status{position:absolute;right:18px;bottom:14px;margin:0}
+  /* Compte à rebours sur une ligne, en haut à droite */
+  .p-cd{padding:12px 18px}
+  .cd{grid-template-columns:repeat(3,minmax(0,1fr));grid-gap:14px}
+  .cdrow{grid-template-columns:minmax(0,1fr);grid-gap:2px}
+  .cdn{text-align:left;font-size:32px}
+  .cdl{font-size:13px;line-height:1.3}
+  /* Météo sur une ligne */
+  .wx{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;grid-gap:0 16px;align-items:center}
+  .wx .eyebrow{grid-column:1/-1}
+  .wx .now{grid-template-columns:auto auto;grid-gap:8px}
+  .wx .now .d{max-width:9em;font-size:12px;line-height:1.3}
+  .days{margin-top:0;padding-top:0;border-top:0;border-left:1px solid var(--line);padding-left:12px;grid-gap:2px}
+  .day{font-size:11px}
+  .day svg{width:22px;height:22px;margin:2px auto}
+  .now svg{width:44px;height:44px}
+  .now .t{font-size:38px}
+  /* Remontées, golf, route : une ligne chacun */
+  .mtn{grid-template-columns:minmax(0,1fr);grid-gap:6px;padding:8px}
+  .tile{padding:8px 12px;grid-gap:10px}
+  .tile svg{width:24px;height:24px}
+  .tile b{letter-spacing:.1em}
+  .tile>span{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;grid-gap:10px}
+  .tile .st{grid-template-columns:auto auto;justify-content:end;margin-top:0;font-size:14px}
+  .cg-btn{padding:9px 14px}
+  .cg-btn b{font-size:20px}
+  .concierge{padding:8px}
+  .cg-btn{grid-gap:10px;padding:10px 12px}
+  .cg-btn svg{width:28px;height:28px}
+  .cg-btn b{font-size:17px;letter-spacing:.14em}
+  .cg-btn.wc-btn b{font-size:15px;letter-spacing:.1em}
+}
+@media (min-width:761px) and (min-aspect-ratio:1/1) and (max-height:800px){
+  .wrap,.col{grid-gap:10px}
+  .col-l{gap:10px}
+  .wrap{padding-block:10px}
+  .panel{padding:11px 16px}
+  .eyebrow{margin-bottom:6px}
+  .date{font-size:20px}
+  .cdn{font-size:28px}
+  .mtn{padding:6px}
+  .tile{padding:6px 12px}
+  .cg-btn{grid-template-columns:auto 1fr}
+  .cg-btn::after{content:none}
+  .cg-btn b{font-size:16px;letter-spacing:.12em}
+  .concierge{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+  .concierge .cg-btn.wc-btn b{font-size:12px;letter-spacing:.06em}
+  .concierge .wc-btn{grid-gap:7px;padding:7px 8px}
+}
+@media (min-width:761px) and (max-aspect-ratio:1/1){
+  .wrap{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto}
+  .col-l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .col-l>.panel:first-child{order:1}
+  .col-l>.mtn{order:2}
+  .col-l>.wx{order:3;display:block}
+  .col-l>.p-today{order:4}
+  .col-l>.concierge{order:5;grid-column:1/-1;margin-top:0}
+  .sc-today{max-height:19vh}
+  .wx .now{grid-template-columns:auto 1fr}
+  .wx .now .d{max-width:none}
+  .days{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+  .clock{font-size:clamp(56px,11vw,120px)}
+  .tile>span{display:block}
+  .tile .st{justify-content:start;margin-top:2px}
+}
+
+.brand-logo{display:block;max-height:34px;max-width:180px;margin:0 0 6px}
+.cam .ph{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#0b1118;border:1px solid var(--line);margin-top:4px}
+.cam .ph img{display:block;width:100%;height:100%;object-fit:cover}
+.cam .ph+.qr{max-width:96px}
+.boot{position:fixed;inset:0;z-index:100;display:grid;place-items:center;color:#8c9cad;font:15px -apple-system,sans-serif;background:#0e151d;padding:24px;text-align:center}
+.enroll{display:grid;grid-gap:14px;justify-items:center;max-width:420px}
+.enroll h1{font-family:var(--display);font-weight:700;font-size:34px;color:#fff;margin:0}
+.enroll p{margin:0;line-height:1.5}
+.enroll input{font:600 26px var(--body);letter-spacing:.12em;text-transform:uppercase;text-align:center;width:260px;padding:12px;border-radius:12px;border:1px solid #243344;background:#16212d;color:#fff}
+.enroll button{font:700 15px var(--body);letter-spacing:.08em;text-transform:uppercase;padding:13px 28px;border:0;border-radius:12px;background:#d8a347;color:#0e151d;cursor:pointer}
+.enroll .err{color:#e0795b;min-height:1.2em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="col col-l">
+    <section class="panel">
+      <div class="top">
+        <div>
+          <div class="clock" id="clock">--:--</div>
+          <div class="date" id="date"></div>
+          <div class="place">Crans-Montana · 1500 m</div>
+          <div class="status" id="status"><i></i><span></span></div>
+        </div>
+        <div class="lang" role="group" aria-label="Langue / Language">
+          <button type="button" id="btn-fr" data-l="fr">FR</button>
+          <button type="button" id="btn-en" data-l="en">EN</button>
+          <button type="button" id="btn-de" data-l="de">DE</button>
+        </div>
+      </div>
+    </section>
+    <section class="panel wx">
+      <p class="eyebrow" data-i="weather"></p>
+      <div class="now" id="now"></div>
+      <div class="days" id="days"></div>
+    </section>
+    <section class="panel mtn" id="mtn"></section>
+    <section class="panel fit p-today"><p class="eyebrow" data-i="today"></p><div class="scroll sc-today" id="today"></div></section>
+    <section class="panel concierge">
+      <button type="button" class="cg-btn" id="cg-btn">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 36h32M24 12v3M11 33a13 13 0 0 1 26 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="10.5" r="1.8" fill="currentColor"/></svg>
+        <span><b data-i="cgTitle"></b><small data-i="cgSub"></small></span>
+      </button>
+      <button type="button" class="cg-btn wc-btn" id="rs-btn">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 6v14a4 4 0 0 0 8 0V6M19 6v36M33 42V6c-5 2-7 8-7 14 0 3 2 5 7 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b data-i="rsTitle"></b><small data-i="rsSub"></small></span>
+      </button>
+      <button type="button" class="cg-btn wc-btn" id="wc-btn">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="14" width="28" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M34 21l9-5v16l-9-5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="13" cy="20" r="2" fill="currentColor"/></svg>
+        <span><b data-i="wcTitle"></b><small data-i="wcSub"></small></span>
+      </button>
+    </section>
+  </div>
+  <div class="col col-r">
+    <section class="panel p-cd">
+      <p class="eyebrow" data-i="season"></p>
+      <div class="cd" id="cd"></div>
+    </section>
+    <section class="panel fit"><h2 data-i="week"></h2><div class="scroll" id="week"></div></section>
+    <section class="panel fit">
+      <h2 data-i="book"></h2>
+      <div class="scroll" id="offers"></div>
+      <div class="legend"><span><i style="background:var(--larch)"></i><span data-i="lgEvent"></span></span><span><i style="background:linear-gradient(180deg,#f2d38a,#d8a347)"></i><span data-i="lgExp"></span></span><span><i style="background:var(--sky)"></i><span data-i="lgOffer"></span></span><span><i style="background:var(--ok)"></i><span data-i="lgOut"></span></span></div>
+    </section>
+  </div>
+  <div class="foot" id="foot"></div>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <button type="button" class="x" id="m-x">&times;</button>
+    <div id="m-body"></div>
+    <button type="button" class="close" id="m-close"></button>
+  </div>
+</div>
+
+<div class="boot" id="boot">Chargement…</div>
+<script src="qrcode.js"></script>
+<script>
+function startApp(){
+  var CFG=window.CONFIG||{};
+  var T = {
+    fr:{weather:"Météo",season:"Avant la saison",today:"Aujourd'hui",week:"Cette semaine",book:"Expériences et réservations",
+        lgEvent:"Événement",lgOffer:"Offre",lgExp:"Prestige",lgOut:"Plein air",unsure:"À confirmer",min:"min",day:"jour",days:"jours",
+        noToday:"Rien au programme officiel. Belle journée pour la promenade des lacs.",noWeek:"Aucun événement repéré sur les 6 prochains jours.",
+        noOffer:"Aucune offre en cours.",started:"La saison est lancée.",expired:"Prévisions en attente de mise à jour.",
+        stale:"Données périmées",upd:"Mis à jour le",ok:"À jour",ko:"Pas à jour",
+        close:"Fermer",exp:"Prestige",travel:"Arrivée et départ",ideas:"Idées pour aujourd'hui",rsPick:"Table du jour",rsTitle:"Restaurants",rsSub:"Nos tables",rsHead:"Nos tables à Crans-Montana",rsKind:"Gastronomie",rsNote:"Sélection des tables distinguées par les guides Michelin et GaultMillau. En novembre, certains établissements ferment entre les saisons : appelez avant de vous déplacer. Votre conciergerie peut réserver pour vous.",wcTitle:"Webcams",wcSub:"En direct",wcHead:"Webcams en direct",wcKind:"Crans-Montana",wcOff:"Image indisponible pour le moment. Scannez pour la voir en direct.",wcSrc:"Scannez une caméra avec votre téléphone pour la voir en direct.",more:"Plus d'infos en direct",checkM:"Situation susceptible d'évoluer : vérifiez avant de partir.",mtn:"Montagne",ageAll:"tous publics",ageFrom:"dès",ageUnit:"ans",progNone:"Programme du jour sur le site du cinéma.",cgTitle:"Conciergerie",cgSub:"À votre service",cgKind:"Service privé",cgText:"Demandez, nous nous occupons de tout. Touchez un service, puis scannez le code : votre demande s'ouvre dans WhatsApp, prête à envoyer.",cgAsk:"Scannez pour demander :",cgSoon:"Coordonnées communiquées à votre arrivée.",cgScan:"Scannez pour écrire sur WhatsApp",contact:"Contact et réservation",scan:"Scannez avec votre téléphone",tel:"Tél.",now:"Accessible en ce moment",
+        from:"Du",to:"au",until:"Jusqu'au",check:"Information à confirmer auprès de l'organisateur avant de vous déplacer.",src:"Sources : crans-montana.ch, commune de Crans-Montana, myswitzerland.com, localcities.ch, Fondation Opale, search.ch",
+        w:{sun:"Ensoleillé",partly:"Assez ensoleillé",cloud:"Nuageux",stratus:"Stratus / brouillard",rain:"Pluie",snow:"Neige",storm:"Orages"},
+        D:["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"],DS:["dim.","lun.","mar.","mer.","jeu.","ven.","sam."],
+        M:["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]},
+    en:{weather:"Weather",season:"Until the ski season",today:"Today",week:"This week",book:"Experiences and bookings",
+        lgEvent:"Event",lgOffer:"Offer",lgExp:"Prestige",lgOut:"Outdoors",unsure:"To be confirmed",min:"low",day:"day",days:"days",
+        noToday:"Nothing on the official programme. A good day for the lakes walk.",noWeek:"No events found for the next 6 days.",
+        noOffer:"No current offers.",started:"The season has started.",expired:"Forecast awaiting update.",
+        stale:"Data out of date",upd:"Updated",ok:"Up to date",ko:"Not up to date",
+        close:"Close",exp:"Prestige",travel:"Getting here and away",ideas:"Ideas for today",rsPick:"Table of the day",rsTitle:"Restaurants",rsSub:"Our picks",rsHead:"Where to dine in Crans-Montana",rsKind:"Fine dining",rsNote:"A selection of restaurants recognised by the Michelin and GaultMillau guides. In November some close between seasons: call before going. Your concierge can book for you.",wcTitle:"Webcams",wcSub:"Live",wcHead:"Live webcams",wcKind:"Crans-Montana",wcOff:"Image unavailable right now. Scan to watch live.",wcSrc:"Scan a camera with your phone to watch it live.",more:"Live information",checkM:"Conditions may change: check before leaving.",mtn:"Mountain",ageAll:"all ages",ageFrom:"age",ageUnit:"+",progNone:"Today's programme on the cinema website.",cgTitle:"Concierge",cgSub:"At your service",cgKind:"Private service",cgText:"Just ask, we take care of everything. Tap a service, then scan the code: your request opens in WhatsApp, ready to send.",cgAsk:"Scan to request:",cgSoon:"Contact details provided on arrival.",cgScan:"Scan to message on WhatsApp",contact:"Contact and booking",scan:"Scan with your phone",tel:"Tel.",now:"Available now",
+        from:"From",to:"to",until:"Until",check:"Please confirm with the organiser before going.",src:"Sources: crans-montana.ch, Crans-Montana municipality, myswitzerland.com, localcities.ch, Fondation Opale, search.ch",
+        w:{sun:"Sunny",partly:"Mostly sunny",cloud:"Cloudy",stratus:"Low cloud / fog",rain:"Rain",snow:"Snow",storm:"Thunderstorms"},
+        D:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],DS:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        M:["January","February","March","April","May","June","July","August","September","October","November","December"]},
+    de:{weather:"Wetter",season:"Bis zur Skisaison",today:"Heute",week:"Diese Woche",book:"Erlebnisse und Buchungen",
+        lgEvent:"Veranstaltung",lgOffer:"Angebot",lgExp:"Prestige",lgOut:"Draussen",unsure:"Zu bestätigen",min:"min.",day:"Tag",days:"Tage",
+        noToday:"Heute kein offizielles Programm. Ein schöner Tag für den Seenweg.",noWeek:"Keine Veranstaltungen in den nächsten 6 Tagen.",
+        noOffer:"Derzeit keine Angebote.",started:"Die Saison hat begonnen.",expired:"Prognose wird aktualisiert.",
+        stale:"Daten veraltet",upd:"Aktualisiert am",ok:"Aktuell",ko:"Nicht aktuell",
+        close:"Schliessen",exp:"Prestige",travel:"An- und Abreise",ideas:"Ideen für heute",rsPick:"Tisch des Tages",rsTitle:"Restaurants",rsSub:"Unsere Auswahl",rsHead:"Gastronomie in Crans-Montana",rsKind:"Gastronomie",rsNote:"Eine Auswahl von Restaurants, ausgezeichnet von Michelin und GaultMillau. Im November schliessen manche zwischen den Saisons: bitte vorher anrufen. Ihre Conciergerie reserviert gerne für Sie.",wcTitle:"Webcams",wcSub:"Live",wcHead:"Live-Webcams",wcKind:"Crans-Montana",wcOff:"Bild derzeit nicht verfügbar. Scannen, um live zu sehen.",wcSrc:"Scannen Sie eine Kamera mit Ihrem Telefon, um sie live zu sehen.",more:"Live-Informationen",checkM:"Die Lage kann sich ändern: vor der Abfahrt prüfen.",mtn:"Berge",ageAll:"alle Altersstufen",ageFrom:"ab",ageUnit:"+",progNone:"Tagesprogramm auf der Website des Kinos.",cgTitle:"Concierge",cgSub:"Zu Ihren Diensten",cgKind:"Privater Service",cgText:"Fragen Sie, wir kümmern uns um alles. Tippen Sie auf einen Service und scannen Sie den Code: Ihre Anfrage öffnet sich versandbereit in WhatsApp.",cgAsk:"Scannen für:",cgSoon:"Kontaktdaten erhalten Sie bei Ihrer Ankunft.",cgScan:"Scannen für WhatsApp",contact:"Kontakt und Reservierung",scan:"Mit dem Telefon scannen",tel:"Tel.",now:"Jetzt zugänglich",
+        from:"Vom",to:"bis",until:"Bis",check:"Bitte vor dem Besuch beim Veranstalter bestätigen.",src:"Quellen: crans-montana.ch, Gemeinde Crans-Montana, myswitzerland.com, localcities.ch, Fondation Opale, search.ch",
+        w:{sun:"Sonnig",partly:"Ziemlich sonnig",cloud:"Bewölkt",stratus:"Hochnebel",rain:"Regen",snow:"Schnee",storm:"Gewitter"},
+        D:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],DS:["So.","Mo.","Di.","Mi.","Do.","Fr.","Sa."],
+        M:["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"]}
+  };
+  var lang = (CFG.lang==="en"||CFG.lang==="de")?CFG.lang:"fr";
+  if (location.hash === "#en") lang = "en";
+  else if (location.hash === "#de") lang = "de";
+  else { try { var s = localStorage.getItem("lang"); if (s === "en" || s === "fr" || s === "de") lang = s; } catch(e){} }
+
+  function pick(o){if(!o)return o;if(o[lang]!==undefined)return o[lang];if(lang==="de"&&o.en!==undefined)return o.en;return o.fr}
+  function pad(n){return n<10?"0"+n:""+n}
+  function iso(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+  function parse(s){var a=s.split("-");return new Date(+a[0],+a[1]-1,+a[2])}
+  function addDays(d,n){var x=new Date(d.getTime());x.setDate(x.getDate()+n);return x}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function fmtDate(d){var L=T[lang];if(lang==="de")return L.D[d.getDay()]+", "+d.getDate()+". "+L.M[d.getMonth()];return lang==="fr"?L.D[d.getDay()]+" "+d.getDate()+" "+L.M[d.getMonth()]:L.D[d.getDay()]+" "+d.getDate()+" "+L.M[d.getMonth()]}
+
+  var ICON = {
+    sun:'<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="9" fill="#f2c14e"/><g stroke="#f2c14e" stroke-width="3" stroke-linecap="round"><path d="M24 5v5M24 38v5M5 24h5M38 24h5M10.6 10.6l3.5 3.5M33.9 33.9l3.5 3.5M10.6 37.4l3.5-3.5M33.9 14.1l3.5-3.5"/></g></svg>',
+    partly:'<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="18" r="8" fill="#f2c14e"/><path d="M16 38h20a7 7 0 0 0 0-14 10 10 0 0 0-19 3 6 6 0 0 0-1 11z" fill="#c9d4de"/></svg>',
+    cloud:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 38h24a8 8 0 0 0 0-16 11 11 0 0 0-21 3 7 7 0 0 0-3 13z" fill="#aebccb"/></svg>',
+    stratus:'<svg viewBox="0 0 48 48" aria-hidden="true"><g stroke="#9fb0c0" stroke-width="4" stroke-linecap="round"><path d="M8 18h32M5 26h38M10 34h28"/></g></svg>',
+    rain:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 30h24a8 8 0 0 0 0-16 11 11 0 0 0-21 3 7 7 0 0 0-3 13z" fill="#aebccb"/><g stroke="#7fb4d6" stroke-width="3" stroke-linecap="round"><path d="M16 35l-2 6M25 35l-2 6M34 35l-2 6"/></g></svg>',
+    snow:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 30h24a8 8 0 0 0 0-16 11 11 0 0 0-21 3 7 7 0 0 0-3 13z" fill="#aebccb"/><g fill="#ffffff"><circle cx="16" cy="38" r="2.5"/><circle cx="24" cy="42" r="2.5"/><circle cx="32" cy="38" r="2.5"/></g></svg>',
+    storm:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 30h24a8 8 0 0 0 0-16 11 11 0 0 0-21 3 7 7 0 0 0-3 13z" fill="#8d9bab"/><path d="M26 30l-6 9h5l-3 7 8-10h-5l3-6z" fill="#f2c14e"/></svg>'
+  };
+
+  var MICON={
+    golf:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M18 40V8l16 6-16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="22" cy="40" rx="14" ry="3.2" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    road:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 42L21 6M32 42L27 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 10v5M24 21v6M24 33v7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+    lift:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 10l40 10M24 15v6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><rect x="14" y="21" width="20" height="19" rx="4" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M14 29h20" stroke="currentColor" stroke-width="2"/></svg>'
+  };
+  function txt(x,i){return pick(x)[i]}
+  /* Risque météo sur la route, calculé à partir des prévisions à Crans-Montana (1500 m) */
+  var RW={
+    fr:{snow:["Neige","Neige annoncée : pneus hiver indispensables, chaînes conseillées."],
+        ice:["Risque de verglas","Gel et humidité : verglas probable, surtout le matin et à l'ombre."],
+        frost:["Gel le matin","Températures négatives : verglas possible tôt le matin dans la partie haute."],
+        cold:["Matin froid","Proche de 0° le matin : verglas ponctuel possible à l'ombre."],
+        wet:["Chaussée glissante","Pluie et froid : chaussée glissante, adaptez votre vitesse."],
+        storm:["Orages","Orages annoncés : prudence, risque de chutes de branches ou de pierres."],
+        ok:["","Pas de risque météo particulier annoncé."],
+        head:"Météo sur la route",today:"Aujourd'hui",tomorrow:"Demain",note:"D'après les prévisions à Crans-Montana (1500 m). La route descend jusqu'à Sierre (530 m), où il fait en général plus doux."},
+    en:{snow:["Snow","Snow forecast: winter tyres essential, chains advised."],
+        ice:["Ice risk","Frost and moisture: ice likely, especially in the morning and in the shade."],
+        frost:["Morning frost","Below-zero temperatures: black ice possible early morning on the upper part."],
+        cold:["Cold morning","Near 0° in the morning: patches of black ice possible in the shade."],
+        wet:["Slippery road","Cold rain: slippery surface, adjust your speed."],
+        storm:["Storms","Thunderstorms forecast: take care, branches or rocks may fall."],
+        ok:["","No particular weather risk forecast."],
+        head:"Weather on the road",today:"Today",tomorrow:"Tomorrow",note:"Based on the forecast for Crans-Montana (1500 m). The road descends to Sierre (530 m), usually milder."},
+    de:{snow:["Schnee","Schneefall angesagt: Winterreifen unerlässlich, Schneeketten empfohlen."],
+        ice:["Glatteisgefahr","Frost und Feuchtigkeit: Glatteis wahrscheinlich, besonders morgens und im Schatten."],
+        frost:["Frost am Morgen","Minustemperaturen: frühmorgens im oberen Teil Glatteis möglich."],
+        cold:["Kalter Morgen","Morgens um 0 Grad: stellenweise Glatteis im Schatten möglich."],
+        wet:["Rutschige Strasse","Kalter Regen: rutschige Fahrbahn, Geschwindigkeit anpassen."],
+        storm:["Gewitter","Gewitter angesagt: Vorsicht, herabfallende Äste oder Steine möglich."],
+        ok:["","Kein besonderes Wetterrisiko angesagt."],
+        head:"Wetter auf der Strasse",today:"Heute",tomorrow:"Morgen",note:"Gemäss Prognose für Crans-Montana (1500 m). Die Strasse führt hinunter nach Siders (530 m), wo es meist milder ist."}
+  };
+  function roadRisk(w){
+    if(!w) return null;
+    var wet=(w.w==="rain"||w.w==="stratus"||w.w==="cloud");
+    if(w.w==="snow") return {l:2,k:"snow"};
+    if(w.min<=0&&wet) return {l:2,k:"ice"};
+    if(w.min<=0) return {l:1,k:"frost"};
+    if(w.min<=3&&wet) return {l:1,k:"ice"};
+    if(w.min<=2) return {l:1,k:"cold"};
+    if(w.w==="rain"&&w.min<=3) return {l:1,k:"wet"};
+    if(w.w==="storm") return {l:1,k:"storm"};
+    return {l:0,k:"ok"};
+  }
+  function wxDay(off){var d=iso(addDays(parse(iso(new Date())),off));for(var i=0;i<DATA.weather.length;i++)if(DATA.weather[i].d===d)return DATA.weather[i];return null}
+  function renderMountain(){
+    var M=DATA.mountain||[], h="", el=document.getElementById("mtn");
+    for(var i=0;i<M.length;i++){var m=M[i], cls=m.state||"", st=txt(m,1);
+      if(m.icon==="road"&&m.state!=="closed"){var rk=roadRisk(wxDay(0));
+        if(rk&&rk.l>0){cls=rk.l>1?"alert":"warn"; st=RW[lang][rk.k][0];}}
+      h+='<button type="button" class="tile '+cls+'" data-m="'+i+'">'+(MICON[m.icon]||"")+
+        '<span><b>'+esc(txt(m,0))+'</b><span class="st"><i></i><span>'+esc(st)+'</span></span></span></button>';}
+    el.innerHTML=h; el.hidden=!M.length;
+  }
+  var ALL = DATA.events.concat(DATA.offers);
+  function evHTML(x){
+    return '<div class="ev '+x.k+(x.exp?' exp':'')+'" role="button" tabindex="0" data-id="'+ALL.indexOf(x)+'"><span class="bar"></span><div><h3>'+esc(txt(x,0))+
+      (x.exp?'<span class="tag gold">'+T[lang].exp+'</span>':'')+(x.unsure?'<span class="tag">'+T[lang].unsure+'</span>':'')+'</h3><p>'+esc(txt(x,1))+'</p></div><span class="more" aria-hidden="true">&rsaquo;</span></div>';
+  }
+  function on(x,day){return x.s<=day && day<=x.e}
+
+  function renderClock(){
+    var n=new Date();
+    document.getElementById("clock").textContent=pad(n.getHours())+":"+pad(n.getMinutes());
+    document.getElementById("date").textContent=fmtDate(n);
+  }
+
+  function renderAll(){
+    var L=T[lang], today=iso(new Date()), i, html;
+    document.documentElement.lang=lang;
+    var lbl=document.querySelectorAll("[data-i]");
+    for(i=0;i<lbl.length;i++) lbl[i].textContent=L[lbl[i].getAttribute("data-i")];
+    document.getElementById("btn-fr").setAttribute("aria-pressed",lang==="fr");
+    document.getElementById("btn-en").setAttribute("aria-pressed",lang==="en");
+    document.getElementById("btn-de").setAttribute("aria-pressed",lang==="de");
+
+    var W=DATA.weather, idx=-1;
+    for(i=0;i<W.length;i++){if(W[i].d===today){idx=i;break}}
+    if(idx<0){
+      document.getElementById("now").innerHTML='<div></div><div class="d stale">'+L.expired+'</div>';
+      document.getElementById("days").innerHTML="";
+    }else{
+      var w=W[idx];
+      document.getElementById("now").innerHTML=(ICON[w.w]||ICON.cloud)+'<div><div class="t">'+w.max+'°</div><div class="d">'+(L.w[w.w]||"")+' · '+L.min+' '+w.min+'°</div></div>';
+      html="";
+      for(i=idx+1;i<W.length && i<=idx+6;i++){
+        var x=W[i], dd=parse(x.d);
+        html+='<div class="day"><b>'+L.DS[dd.getDay()]+'</b>'+(ICON[x.w]||ICON.cloud)+'<span class="mx">'+x.max+'°</span> '+x.min+'°</div>';
+      }
+      document.getElementById("days").innerHTML=html;
+    }
+
+    var t0=parse(today).getTime(); html="";
+    for(i=0;i<DATA.countdown.length;i++){
+      var c=DATA.countdown[i], n=Math.round((parse(c.d).getTime()-t0)/86400000);
+      if(n<0) continue;
+      html+='<div class="cdrow"><div class="cdn">'+n+'</div><div class="cdl">'+(n===1?L.day:L.days)+' · '+esc(txt(c,0))+'<small>'+esc(txt(c,1))+'</small></div></div>';
+    }
+    document.getElementById("cd").innerHTML=html||'<div class="empty">'+L.started+'</div>';
+
+    html="";
+    for(i=0;i<DATA.events.length;i++){if(on(DATA.events[i],today)) html+=evHTML(DATA.events[i])}
+    for(i=0;i<DATA.offers.length;i++){if(DATA.offers[i].s===today) html+=evHTML(DATA.offers[i])}
+    renderMountain();
+    if(!html) html='<div class="empty">'+L.noToday+'</div>';
+    /* Idées du jour : activités de plein air + une table qui change chaque jour, pour remplir l'encart sans vide */
+    var ideas="";
+    for(i=0;i<DATA.offers.length;i++){if(DATA.offers[i].k==="outdoor"&&on(DATA.offers[i],today)) ideas+=evHTML(DATA.offers[i])}
+    var RL=DATA.restaurants||[];
+    if(RL.length){var dn=Math.floor(parse(today).getTime()/86400000), r=RL[((dn%RL.length)+RL.length)%RL.length];
+      ideas+='<div class="ev offer rs-pick" role="button" tabindex="0"><span class="bar"></span><div><h3>'+esc(L.rsPick)+' : '+esc(r.name)+'</h3><p>'+esc(txt(r,0))+' · '+esc(txt(r,1))+'</p></div><span class="more" aria-hidden="true">&rsaquo;</span></div>';}
+    if(ideas) html+='<div class="subhead">'+L.ideas+'</div>'+ideas;
+    document.getElementById("today").innerHTML=html;
+
+    html="";
+    for(var k=1;k<=6;k++){
+      var dayD=addDays(parse(today),k), day=iso(dayD), list="";
+      for(i=0;i<DATA.events.length;i++){if(DATA.events[i].s===day) list+=evHTML(DATA.events[i])}
+      for(i=0;i<DATA.offers.length;i++){if(DATA.offers[i].s===day) list+=evHTML(DATA.offers[i])}
+      if(list) html+='<div class="dayhead">'+fmtDate(dayD)+'</div>'+list;
+    }
+    document.getElementById("week").innerHTML=html||'<div class="empty">'+L.noWeek+'</div>';
+
+    html="";
+    for(i=0;i<DATA.offers.length;i++){if(DATA.offers[i].exp&&on(DATA.offers[i],today)) html+=evHTML(DATA.offers[i])}
+    for(i=0;i<DATA.offers.length;i++){if(!DATA.offers[i].exp&&on(DATA.offers[i],today)) html+=evHTML(DATA.offers[i])}
+    document.getElementById("offers").innerHTML=html||'<div class="empty">'+L.noOffer+'</div>';
+
+    var u=parse(DATA.updated);
+    var fresh = DATA.updated>=iso(addDays(parse(today),-1)) && today<=DATA.validUntil;
+    var st=document.getElementById("status");
+    st.className="status "+(fresh?"ok":"ko");
+    st.querySelector("span").textContent=fresh?L.ok:L.ko;
+    document.getElementById("foot").innerHTML=(today>DATA.validUntil?'<span class="stale">'+L.stale+' · </span>':'')+
+      (CFG.agency?esc(CFG.agency)+' · ':'')+(window.SCREEN_CODE?esc(window.SCREEN_CODE)+' · ':'')+L.upd+' '+u.getDate()+' '+L.M[u.getMonth()]+' · '+L.src;
+  }
+
+  /* Fiche détaillée (popup) */
+  var modal=document.getElementById("modal"), current=null, closeTimer=null, lastFocus=null;
+  function shortDate(s){var d=parse(s);return d.getDate()+" "+T[lang].M[d.getMonth()]+(s.slice(0,4)!==iso(new Date()).slice(0,4)?" "+d.getFullYear():"")}
+  function whenText(x){
+    var L=T[lang], today=iso(new Date());
+    if(x.k==="outdoor") return L.now;
+    if(x.s===x.e){var d=fmtDate(parse(x.s));return d.charAt(0).toUpperCase()+d.slice(1)}
+    if(x.s<=today) return L.until+" "+shortDate(x.e);
+    return L.from+" "+shortDate(x.s)+" "+L.to+" "+shortDate(x.e);
+  }
+  function host(u){return String(u).replace(/^https?:\/\/(www\.)?/,"").split("/")[0]}
+  function qrSVG(u){
+    try{ if(typeof qrcode!=="function") return ""; var q=qrcode(0,"M"); q.addData(u); q.make(); return q.createSvgTag({cellSize:4,margin:0,scalable:true}); }catch(e){ return ""; }
+  }
+  /* Webcams officielles (© Crans-Montana Tourisme & Congrès, via guidle) : image la plus récente + lien vers le lecteur en direct */
+  var WEBCAMS=[
+    {cat:{fr:"Golf",en:"Golf"},fr:"Ballesteros, trou 18",en:"Ballesteros, hole 18",img:"https://www.golfcrans.ch/fr/api/webcam/Ballesteros18",bare:true,nr:true,live:"https://golfcrans.ch/fr/page/webcam-308",src:"© Golf-Club Crans-sur-Sierre"},
+    {cat:{fr:"Golf",en:"Golf"},fr:"Practice",en:"Driving range",img:"https://www.golfcrans.ch/fr/api/webcam/Driving",bare:true,nr:true,live:"https://golfcrans.ch/fr/page/webcam-308",src:"© Golf-Club Crans-sur-Sierre"},
+    {cat:{fr:"Ski",en:"Ski"},fr:"Glacier de la Plaine Morte",en:"Plaine Morte glacier",img:"https://d37dhr5745n0y2.cloudfront.net/webcam_latest/737904349_original_latest.jpg",live:"https://www.guidle.com/fr/webcams/ohne-ortsangabe/plaine-morte_AKXqDjZ?forceOfferType=WEBCAM_PLAYER"},
+    {cat:{fr:"Ski",en:"Ski"},fr:"Aminona, départ des remontées",en:"Aminona, lift base",img:"https://d37dhr5745n0y2.cloudfront.net/webcam_latest/752316447_original_latest.jpg",live:"https://www.guidle.com/fr/webcams/crans-montana/aminona_ActKaiY?forceOfferType=WEBCAM_PLAYER"}
+  ];
+  var WC={webcams:true}, wcTimer=null;
+  window.camErr=function(img){var c=WEBCAMS[+img.getAttribute("data-c")];
+    if(c&&c.bare&&img.getAttribute("data-try")==="0"){img.setAttribute("data-try","1");img.src=camSrc(c,1);return;}
+    var ph=img.parentNode; if(ph&&ph.parentNode) ph.parentNode.removeChild(ph);};
+  function camSrc(c,attempt){
+    var n=Math.floor(Date.now()/300000);
+    if(c.bare) return attempt===1?c.img:c.img+"?"+n; /* format utilisé par le site du golf */
+    return c.img+(c.img.indexOf("?")<0?"?":"&")+"t="+n;
+  }
+  function renderWebcams(){
+    var L=T[lang], h='<p class="kind outdoor"><i></i><span>'+L.wcKind+'</span></p><h2 id="m-title">'+L.wcHead+'</h2>'+
+      '<p class="detail"><span class="live"><i></i>Live</span> &nbsp;'+L.wcSrc+'</p><div class="cams">';
+    for(var i=0;i<WEBCAMS.length;i++){var c=WEBCAMS[i];
+      h+='<div class="cam"><span class="ct">'+esc(pick(c.cat))+'</span><b>'+esc(pick(c))+'</b>'+
+        '<div class="ph"><img alt="" data-c="'+i+'" data-try="0"'+(c.nr?' referrerpolicy="no-referrer"':'')+' src="'+camSrc(c,0)+'" onerror="window.camErr&&camErr(this)"></div>'+
+        '<div class="qr">'+qrSVG(c.live)+'</div><small>'+esc(c.src||"© Crans-Montana Tourisme & Congrès")+'</small></div>';}
+    return h+'</div>';
+  }
+  function camFallback(img){
+    var c=WEBCAMS[+img.getAttribute("data-c")], ph=img.parentNode; if(!c||!ph) return;
+    ph.innerHTML='<div class="fb"><span>'+T[lang].wcOff+'</span><div class="qr">'+qrSVG(c.live)+'</div></div>';
+  }
+  function wireCams(){
+    var im=document.querySelectorAll(".cam img");
+    for(var i=0;i<im.length;i++){
+      im[i].onerror=function(){
+        var c=WEBCAMS[+this.getAttribute("data-c")];
+        if(c&&c.bare&&this.getAttribute("data-try")==="0"){ this.setAttribute("data-try","1"); this.src=camSrc(c,1); return; } /* 2e essai sans paramètre */
+        camFallback(this);
+      };
+    }
+  }
+  var RS={restaurants:true};
+  function renderRestaurants(){
+    var L=T[lang], R=DATA.restaurants||[], h='<p class="kind offer"><i></i><span>'+L.rsKind+'</span></p><h2 id="m-title">'+L.rsHead+'</h2>'+
+      '<p class="detail">'+L.rsNote+'</p><div class="rests">';
+    for(var i=0;i<R.length;i++){var r=R[i];
+      h+='<div class="rest"><span class="aw">'+esc(txt(r,0))+'</span><b>'+esc(r.name)+'</b><p>'+esc(txt(r,1))+'</p>'+
+        '<p class="hr">'+esc(txt(r,2))+'</p>'+(r.tel?'<span class="tl">'+L.tel+' '+esc(r.tel)+'</span>':'')+(r.web?'<div class="qr">'+qrSVG(r.web)+'</div>':'')+'</div>';}
+    return h+'</div>';
+  }
+  var CG={concierge:true};
+  function cgLink(msg,sid){var c=window.CONCIERGE||{}, wa=String(c.whatsapp||"").replace(/[^0-9]/g,""); if(!wa) return ""; var ref="Réf. "+(window.SCREEN_CODE||"DEMO")+(sid?" · "+sid:""); var t=(msg?msg+"\n\n":"")+ref; return "https://wa.me/"+wa+"?text="+encodeURIComponent(t);}
+  function renderConcierge(){
+    var L=T[lang], c=window.CONCIERGE||{}, sv=Array.isArray(c.services)?c.services:[], hrs=c.hours&&(pick(c.hours));
+    var link=cgLink(""), h='<p class="kind event"><i></i><span>'+L.cgKind+'</span></p><h2 id="m-title">'+L.cgTitle+'</h2>'+
+      '<p class="desc">'+L.cgText+'</p>';
+    if(!link&&!c.tel&&!c.email) return h+'<p class="detail">'+L.cgSoon+'</p>';
+    h+='<div class="cgwrap"><div class="svc">';
+    for(var i=0;i<sv.length;i++){var s=sv[i];
+      h+='<button type="button" class="svc-b" data-s="'+i+'"><b>'+esc(pick(s))+'</b><small>'+esc(lang==="fr"?s.sfr:lang==="de"?(s.sde||s.sen||s.sfr):(s.sen||s.sfr))+'</small></button>';}
+    h+='</div><div class="cgqr"><div class="qr" id="cg-qr">'+(link?qrSVG(link):"")+'</div><p id="cg-cap">'+L.cgScan+'</p>'+
+      (hrs?'<p class="hrs">'+esc(hrs)+'</p>':'')+(c.tel?'<p class="hrs">'+L.tel+' '+esc(c.tel)+'</p>':'')+'</div></div>';
+    return h;
+  }
+  function pickService(i){
+    var c=window.CONCIERGE||{}, s=(c.services||[])[i], L=T[lang]; if(!s) return;
+    var bs=document.querySelectorAll(".svc-b"); for(var k=0;k<bs.length;k++) bs[k].classList.toggle("on",+bs[k].getAttribute("data-s")===i);
+    var q=document.getElementById("cg-qr"); if(q) q.innerHTML=qrSVG(cgLink(lang==="fr"?s.mfr:lang==="de"?(s.mde||s.men||s.mfr):(s.men||s.mfr),(s.id||("S"+(i+1))).toUpperCase()));
+    var cap=document.getElementById("cg-cap"); if(cap) cap.innerHTML=L.cgAsk+' <b>'+esc(pick(s))+'</b>';
+  }
+  function renderModal(){
+    var x=current, L=T[lang]; if(!x) return;
+    document.querySelector(".sheet").classList.toggle("wide",x===WC||x===RS||x===CG);
+    if(x===RS){
+      document.getElementById("m-body").innerHTML=renderRestaurants();
+      document.getElementById("m-close").textContent=L.close;
+      document.getElementById("m-x").setAttribute("aria-label",L.close);
+      return;
+    }
+    if(x===WC){
+      document.getElementById("m-body").innerHTML=renderWebcams();
+      document.getElementById("m-close").textContent=L.close;
+      document.getElementById("m-x").setAttribute("aria-label",L.close);
+      return;
+    }
+    if(x===CG){
+      document.getElementById("m-body").innerHTML=renderConcierge();
+      document.getElementById("m-close").textContent=L.close;
+      document.getElementById("m-x").setAttribute("aria-label",L.close);
+      return;
+    }
+    var kinds={event:L.lgEvent,offer:L.lgOffer,outdoor:L.lgOut};
+    var isM=!x.s, kcls=x.k||(x.state==="open"?"outdoor":x.state==="partial"?"offer":"event");
+    var c=DATA.contact||{}, own=x.tel||x.web;
+    var tel=own?x.tel:c.tel, web=own?x.web:c.web;
+    var h='<p class="kind '+kcls+'"><i></i><span>'+esc(isM?L.mtn:(kinds[x.k]||""))+'</span></p>'+
+      '<h2 id="m-title">'+esc(txt(x,0))+(x.unsure?'<span class="tag">'+L.unsure+'</span>':'')+'</h2>'+
+      '<p class="when">'+esc(isM?txt(x,1):whenText(x))+'</p>'+
+      (isM?'':'<p class="detail">'+esc(txt(x,1))+'</p>')+
+      (txt(x,2)?'<p class="desc">'+esc(txt(x,2))+'</p>':'');
+    if(x.icon==="road"){
+      var R=RW[lang], wt=[[R.today,wxDay(0)],[R.tomorrow,wxDay(1)]], wh="";
+      for(var wi=0;wi<wt.length;wi++){var rk2=roadRisk(wt[wi][1]); if(!rk2) continue;
+        wh+='<div class="r l'+rk2.l+'"><i></i><b>'+wt[wi][0]+'</b><span>'+R[rk2.k][1]+' <span style="color:var(--muted)">('+wt[wi][1].min+'° / '+wt[wi][1].max+'°)</span></span></div>';}
+      if(wh) h+='<div class="wxroad"><p class="lbl">'+R.head+'</p>'+wh+'<p class="detail" style="margin:0;font-size:12px">'+R.note+'</p></div>';
+    }
+    var trv=(x.icon==="road"&&DATA.travel)?DATA.travel:null;
+    if(x.rows&&x.rows.length){h+='<dl class="rows">';for(var r=0;r<x.rows.length;r++){var rw=x.rows[r];var rv=(rw.v&&typeof rw.v==="object")?(pick(rw.v)):rw.v;h+='<dt>'+esc(pick(rw))+'</dt><dd>'+esc(rv)+'</dd>';}h+='</dl>';}
+    if(trv&&trv.length){h+='<p class="lbl" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 4px">'+L.travel+'</p><dl class="rows">';for(var tr=0;tr<trv.length;tr++){var tw=trv[tr];h+='<dt>'+esc(pick(tw))+'</dt><dd>'+esc(pick(tw.v))+'</dd>';}h+='</dl>';}
+    if(x.program){
+      var today=iso(new Date()), days=[], by={};
+      for(var q=0;q<x.program.length;q++){var pr=x.program[q]; if(pr.d<today) continue; if(!by[pr.d]){by[pr.d]=[];days.push(pr.d);} by[pr.d].push(pr);}
+      days.sort(); days=days.slice(0,3);
+      if(days.length){h+='<div class="prog">';
+        for(var di=0;di<days.length;di++){var lst=by[days[di]].slice().sort(function(a,b){return a.t<b.t?-1:1});
+          h+='<h4>'+(days[di]===today?esc(L.today):esc(fmtDate(parse(days[di]))))+'</h4>';
+          for(var li=0;li<lst.length;li++){var f=lst[li];
+            h+='<div class="row"><b>'+esc(f.t)+'</b><span>'+esc(pick(f))+'</span><small>'+(f.age===undefined?'':f.age?(lang==="fr"?L.ageFrom+" "+f.age+" "+L.ageUnit:f.age+L.ageUnit):L.ageAll)+'</small></div>';}
+        }
+        h+='</div>';
+      }else h+='<p class="detail">'+L.progNone+'</p>';
+    }
+    if(x.prices) h+='<p class="price">'+esc(pick(x.prices))+'</p>';
+    if(x.unsure) h+='<p class="warn">'+(isM?L.checkM:L.check)+'</p>';
+    if(tel||web){
+      var qr=web?qrSVG(web):"";
+      h+='<div class="contact"><div><p class="lbl">'+(isM?L.more:L.contact)+(own?'':' · '+esc((pick(c)||"")))+'</p>'+
+        (tel?'<p class="line">'+L.tel+' <b>'+esc(tel)+'</b></p>':'')+
+        (web?'<p class="line">'+esc(host(web))+'</p>':'')+'</div>'+
+        (qr?'<div class="qr">'+qr+'<small>'+L.scan+'</small></div>':'')+'</div>';
+    }
+    document.getElementById("m-body").innerHTML=h;
+    document.getElementById("m-close").textContent=L.close;
+    document.getElementById("m-x").setAttribute("aria-label",L.close);
+  }
+  function openModal(x){
+    current=x; lastFocus=document.activeElement; renderModal(); modal.hidden=false;
+    document.getElementById("m-close").focus({preventScroll:true});
+    clearTimeout(closeTimer); closeTimer=setTimeout(closeModal,(x===WC||x===RS)?240000:90000); /* fermeture auto après 90 s (4 min pour les webcams) */
+  }
+  function closeModal(){
+    modal.hidden=true; current=null; clearTimeout(closeTimer); clearInterval(wcTimer);
+    if(lastFocus&&lastFocus.focus) try{lastFocus.focus({preventScroll:true})}catch(e){}
+  }
+  document.addEventListener("click",function(e){
+    var sb=e.target.closest&&e.target.closest(".svc-b");
+    if(sb){ pickService(+sb.getAttribute("data-s")); return; }
+    var rp=e.target.closest&&e.target.closest(".rs-pick");
+    if(rp&&modal.hidden){ openModal(RS); return; }
+    var tl=e.target.closest&&e.target.closest(".tile");
+    if(tl&&modal.hidden){ var mm=(DATA.mountain||[])[+tl.getAttribute("data-m")]; if(mm) openModal(mm); return; }
+    var ev=e.target.closest&&e.target.closest(".ev");
+    if(ev&&modal.hidden){ var x=ALL[+ev.getAttribute("data-id")]; if(x) openModal(x); }
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&!modal.hidden) closeModal();
+    else if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("ev")){ e.preventDefault(); e.target.click(); }
+  });
+  modal.addEventListener("click",function(e){ if(e.target===modal) closeModal(); });
+  document.getElementById("m-x").onclick=closeModal;
+  document.getElementById("cg-btn").onclick=function(){openModal(CG)};
+  document.getElementById("wc-btn").onclick=function(){openModal(WC)};
+  document.getElementById("rs-btn").onclick=function(){openModal(RS)};
+  document.getElementById("m-close").onclick=closeModal;
+
+  function setLang(l){lang=l; try{localStorage.setItem("lang",l)}catch(e){} renderClock(); renderAll(); renderModal();}
+  document.getElementById("btn-fr").onclick=function(){setLang("fr")};
+  document.getElementById("btn-en").onclick=function(){setLang("en")};
+  document.getElementById("btn-de").onclick=function(){setLang("de")};
+  window.addEventListener("hashchange",function(){if(location.hash==="#en")setLang("en");else if(location.hash==="#de")setLang("de");else if(location.hash==="#fr")setLang("fr");});
+
+  if(CFG.accent){document.documentElement.style.setProperty("--larch",CFG.accent);}
+  if(CFG.place){document.querySelector(".place").textContent=CFG.place;}
+  if(CFG.logo){var lg=document.createElement("img");lg.src=CFG.logo;lg.alt=CFG.agency||"";lg.className="brand-logo";document.querySelector(".place").parentNode.insertBefore(lg,document.querySelector(".clock"));}
+  renderClock(); renderAll();
+
+  /* Défilement lent des listes trop longues : pause en haut et en bas, puis retour au début.
+     Le locataire peut aussi faire défiler au doigt (avec élan) : l'auto s'arrête et reprend 15 s après, là où il s'est arrêté.
+     Le geste est géré ici en JavaScript pour que le défilement automatique reste fiable sur iPad. */
+  var SC=document.querySelectorAll(".scroll"), scState=[], HAND=15000;
+  for(var i=0;i<SC.length;i++){
+    (function(s){
+      var el=s.el, y0=0, top0=0, lastY=0, lastT=0, v=0, moved=0, raf=0;
+      function maxS(){return Math.max(0,el.scrollHeight-el.clientHeight)}
+      function setTop(t){ t=Math.max(0,Math.min(maxS(),t)); el.scrollTop=t; s.pos=t; }
+      el.addEventListener("touchstart",function(e){ cancelAnimationFrame(raf); var t=e.touches[0]; y0=lastY=t.clientY; top0=el.scrollTop; lastT=Date.now(); v=0; moved=0; s.userUntil=Date.now()+HAND; },{passive:true});
+      el.addEventListener("touchmove",function(e){ var t=e.touches[0], now=Date.now(), dt=Math.max(1,now-lastT);
+        v=0.8*((lastY-t.clientY)/dt)+0.2*v; lastY=t.clientY; lastT=now; moved=Math.max(moved,Math.abs(t.clientY-y0));
+        setTop(top0+(y0-t.clientY)); s.userUntil=now+HAND; },{passive:true});
+      el.addEventListener("touchend",function(){ s.userUntil=Date.now()+HAND;
+        if(Date.now()-lastT>80) v=0;
+        (function glide(){ if(Math.abs(v)<0.02) return; setTop(el.scrollTop+v*16); v*=0.95; s.userUntil=Date.now()+HAND; raf=requestAnimationFrame(glide); })(); },{passive:true});
+      el.addEventListener("wheel",function(e){ setTop(el.scrollTop+e.deltaY); s.userUntil=Date.now()+HAND; },{passive:true});
+      el.addEventListener("click",function(e){ if(moved>8){ e.stopPropagation(); e.preventDefault(); moved=0; } },true); /* un glissement n'ouvre pas de fiche */
+      scState.push(s);
+    })({el:SC[i],wait:120,pos:0,userUntil:0});
+  }
+  setInterval(function(){
+    if(!modal.hidden) return;
+    for(var j=0;j<scState.length;j++){
+      var s=scState[j], el=s.el, max=el.scrollHeight-el.clientHeight;
+      if(Date.now()<s.userUntil){ s.wait=30; continue; } /* le locataire a la main */
+      if(max<=2){ if(s.pos){s.pos=0;el.scrollTop=0;} continue; }
+      if(s.wait>0){ s.wait--; continue; }
+      if(s.pos>=max){ s.pos=0; el.scrollTop=0; s.wait=120; continue; }
+      s.pos=Math.min(max,s.pos+0.6); el.scrollTop=s.pos;
+      if(s.pos>=max) s.wait=100;
+    }
+  },33);
+
+  /* Rechargement automatique chaque jour à 5h pour récupérer les nouvelles données */
+  function reloadPage(){
+    if(navigator.onLine===false) return; /* hors ligne : nouvel essai 10 min plus tard */
+    try{ window.top.location.reload(); }catch(e){ location.reload(); }
+  }
+  var n0=new Date(), reloadAt=new Date(n0.getFullYear(),n0.getMonth(),n0.getDate(),5,0,0);
+  if(reloadAt<=n0) reloadAt.setDate(reloadAt.getDate()+1);
+  setInterval(function(){ if(new Date()>=reloadAt){ reloadAt=new Date(Date.now()+600000); reloadPage(); } },30000);
+
+  var lastDay=iso(new Date());
+  setInterval(function(){
+    renderClock();
+    var d=iso(new Date()); if(d!==lastDay){lastDay=d; renderAll();}
+  },15000);
+
+  try{ if(navigator.wakeLock && navigator.wakeLock.request){ navigator.wakeLock.request("screen").catch(function(){}); } }catch(err){}
+}
+
+/* Démarrage
+   1. code d'installation de l'écran (ex. CM-0001), saisi une fois puis mémorisé
+   2. devices/<CODE>.json : réglages de cet écran (agence, logement, conciergerie, station)
+   3. resorts/<station>.json : contenu local mis à jour chaque matin
+   Tout est mis en cache : l'écran reste affiché si le réseau coupe. */
+(function(){
+  var KEY="cm-code", bootEl=document.getElementById("boot");
+  function getJSON(u){ return fetch(u+"?t="+Date.now(),{cache:"no-store"}).then(function(r){ if(!r.ok) throw r.status; return r.json(); }); }
+  function save(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+  function load(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
+  function norm(c){ return String(c||"").toUpperCase().replace(/[^A-Z0-9-]/g,""); }
+  function start(code,dev,data){
+    window.SCREEN_CODE=code; window.CONFIG=dev; window.CONCIERGE=dev.concierge||{}; window.DATA=data;
+    if(bootEl&&bootEl.parentNode) bootEl.parentNode.removeChild(bootEl);
+    startApp();
+    /* Bouton caché : 5 touchers rapides sur la ligne du lieu pour changer le code de l'écran */
+    var taps=0,tt=0; document.querySelector(".place").addEventListener("click",function(){ taps=(Date.now()-tt<600)?taps+1:1; tt=Date.now();
+      if(taps>=5 && confirm("Changer le code d'installation de cet écran ?")){ localStorage.removeItem(KEY); location.reload(); } });
+  }
+  function fetchAll(code){
+    return getJSON("devices/"+code+".json").then(function(dev){
+      return getJSON("resorts/"+(dev.resort||"crans-montana")+".json").then(function(data){ return [dev,data]; });
+    });
+  }
+  function enroll(msg){
+    bootEl.innerHTML='<form class="enroll"><h1>Bienvenue</h1><p>Saisissez le code d\'installation de cet écran.<br><small>Enter the screen code · Bildschirmcode eingeben</small></p>'+
+      '<input id="code" autocomplete="off" autocapitalize="characters" placeholder="CM-0000"><button type="submit">Valider</button><p class="err" id="err">'+(msg||"")+'</p></form>';
+    var f=bootEl.querySelector("form"); f.onsubmit=function(ev){ ev.preventDefault();
+      var code=norm(document.getElementById("code").value); if(!code) return;
+      document.getElementById("err").textContent="Vérification…";
+      fetchAll(code).then(function(r){ localStorage.setItem(KEY,code); save("cm-dev",r[0]); save("cm-data",r[1]); start(code,r[0],r[1]); })
+        .catch(function(st){ document.getElementById("err").textContent= st===404?"Code inconnu. Vérifiez-le auprès de votre agence.":"Connexion impossible, réessayez."; });
+    };
+  }
+  var q=norm((location.search.match(/[?&]code=([^&]+)/)||[])[1]); if(q) localStorage.setItem(KEY,q);
+  var code=localStorage.getItem(KEY);
+  if(!code){ enroll(); }
+  else{
+    fetchAll(code).then(function(r){ save("cm-dev",r[0]); save("cm-data",r[1]); start(code,r[0],r[1]); })
+      .catch(function(st){
+        var dev=load("cm-dev"), data=load("cm-data");
+        if(st===404 && !dev){ localStorage.removeItem(KEY); enroll("Code inconnu."); return; }
+        if(dev&&data) start(code,dev,data);
+        else { bootEl.textContent="Connexion indisponible. Nouvel essai dans une minute."; setTimeout(function(){ location.reload(); },60000); }
+      });
+    /* Toutes les 30 min : nouveaux réglages ou nouveau contenu publiés => l'écran se recharge */
+    setInterval(function(){
+      fetchAll(code).then(function(r){
+        var a=JSON.stringify(r[0]), b=JSON.stringify(r[1]);
+        if(a!==JSON.stringify(load("cm-dev"))||b!==JSON.stringify(load("cm-data"))){ save("cm-dev",r[0]); save("cm-data",r[1]); location.reload(); }
+      }).catch(function(){});
+    },1800000);
+  }
+  if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(function(){}); }
+})();
+</script>
+</body>
+</html>

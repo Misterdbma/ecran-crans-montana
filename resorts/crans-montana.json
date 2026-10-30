@@ -1,0 +1,887 @@
+{
+  "updated": "2026-10-30",
+  "validUntil": "2026-11-05",
+  "weather": [
+    {
+      "d": "2026-10-30",
+      "w": "partly",
+      "min": 2,
+      "max": 9
+    },
+    {
+      "d": "2026-10-31",
+      "w": "sun",
+      "min": 1,
+      "max": 9
+    },
+    {
+      "d": "2026-11-01",
+      "w": "sun",
+      "min": -1,
+      "max": 6
+    },
+    {
+      "d": "2026-11-02",
+      "w": "sun",
+      "min": -2,
+      "max": 5
+    },
+    {
+      "d": "2026-11-03",
+      "w": "sun",
+      "min": -1,
+      "max": 6
+    },
+    {
+      "d": "2026-11-04",
+      "w": "sun",
+      "min": -1,
+      "max": 7
+    },
+    {
+      "d": "2026-11-05",
+      "w": "sun",
+      "min": 0,
+      "max": 7
+    }
+  ],
+  "events": [
+    {
+      "s": "2026-10-31",
+      "e": "2026-10-31",
+      "k": "event",
+      "fr": [
+        "Concert Duo Orpheus",
+        "Temple protestant, 19h30 · entrée libre",
+        "Louise Beaudoire (violon) et Vatsana Cordani (violoncelle) jouent Ravel et Glière, avec quelques surprises musicales."
+      ],
+      "en": [
+        "Duo Orpheus concert",
+        "Protestant church, 7.30 pm · free",
+        "Louise Beaudoire (violin) and Vatsana Cordani (cello) play Ravel and Glière, plus a few musical surprises."
+      ],
+      "web": "https://www.myswitzerland.com/fr/experiences/events/duo-orpheus/",
+      "de": [
+        "Konzert Duo Orpheus",
+        "Reformierte Kirche, 19.30 Uhr · Eintritt frei",
+        "Louise Beaudoire (Violine) und Vatsana Cordani (Cello) spielen Ravel und Glière, dazu einige musikalische Überraschungen."
+      ]
+    },
+    {
+      "s": "2026-11-01",
+      "e": "2026-11-01",
+      "k": "event",
+      "fr": [
+        "Fondation Opale : atelier enfants et film",
+        "Lens · atelier 10h30 · « Melodie » 17h",
+        "Atelier créatif pour enfants autour de l'exposition Emily Kam Kngwarray de 10h30 à 12h, puis projection du documentaire « Melodie » d'Anka Schmid à 17h. Tarifs auprès de la fondation."
+      ],
+      "en": [
+        "Fondation Opale: kids' workshop and film",
+        "Lens · workshop 10.30 am · \"Melodie\" 5 pm",
+        "Creative workshop for children around the Emily Kam Kngwarray exhibition from 10.30 am to 12 pm, then the documentary \"Melodie\" by Anka Schmid at 5 pm. Ask the foundation for prices."
+      ],
+      "tel": "+41 27 483 46 10",
+      "web": "https://www.fondationopale.ch",
+      "de": [
+        "Fondation Opale: Kinderatelier und Film",
+        "Lens · Atelier 10.30 Uhr · «Melodie» 17 Uhr",
+        "Kreativatelier für Kinder zur Ausstellung Emily Kam Kngwarray von 10.30 bis 12 Uhr, danach um 17 Uhr der Dokumentarfilm «Melodie» von Anka Schmid. Preise bei der Stiftung."
+      ]
+    },
+    {
+      "s": "2026-11-08",
+      "e": "2026-11-08",
+      "k": "event",
+      "fr": [
+        "Fondation Opale : visite guidée",
+        "Lens · 11h · dernier jour de l'exposition",
+        "Visite de l'exposition Emily Kam Kngwarray avec des mini-spectacles de la compagnie de marionnettes Les Héros Fourbus. Tarif auprès de la fondation."
+      ],
+      "en": [
+        "Fondation Opale: guided tour",
+        "Lens · 11 am · last day of the exhibition",
+        "Tour of the Emily Kam Kngwarray exhibition with short puppet performances by the Les Héros Fourbus company. Ask the foundation for the price."
+      ],
+      "tel": "+41 27 483 46 10",
+      "web": "https://www.fondationopale.ch",
+      "de": [
+        "Fondation Opale: Führung",
+        "Lens · 11 Uhr · letzter Ausstellungstag",
+        "Führung durch die Ausstellung Emily Kam Kngwarray mit kurzen Auftritten der Puppenkompanie Les Héros Fourbus. Preis bei der Stiftung."
+      ]
+    }
+  ],
+  "offers": [
+    {
+      "s": "2026-10-29",
+      "e": "2027-04-30",
+      "k": "offer",
+      "exp": true,
+      "fr": [
+        "Vol panoramique en hélicoptère",
+        "Air-Glaciers · départ de l'aéroport de Sion · 20 à 60 min",
+        "Survol des glaciers et sommets valaisans avec Air-Glaciers, au départ de l'aéroport de Sion, à une trentaine de kilomètres de Crans-Montana. Vols de 20 à 60 minutes, de 1 à 5 passagers. Tarifs sur demande auprès d'Air-Glaciers ou de votre conciergerie."
+      ],
+      "en": [
+        "Helicopter scenic flight",
+        "Air-Glaciers · from Sion Airport · 20 to 60 min",
+        "Fly over the Valais glaciers and peaks with Air-Glaciers, departing from Sion Airport, about 30 km from Crans-Montana. Flights of 20 to 60 minutes, 1 to 5 passengers. Prices on request from Air-Glaciers or your concierge."
+      ],
+      "de": [
+        "Helikopter-Rundflug",
+        "Air-Glaciers · ab Flughafen Sitten · 20 bis 60 Min.",
+        "Rundflug über die Walliser Gletscher und Gipfel mit Air-Glaciers, ab dem Flughafen Sitten, rund 30 km von Crans-Montana. Flüge von 20 bis 60 Minuten, 1 bis 5 Passagiere. Preise auf Anfrage bei Air-Glaciers oder Ihrer Conciergerie."
+      ],
+      "tel": "+41 27 329 13 02",
+      "web": "https://www.air-glaciers.ch"
+    },
+    {
+      "s": "2026-10-29",
+      "e": "2027-02-14",
+      "k": "offer",
+      "exp": true,
+      "fr": [
+        "Mondiaux de ski FIS 2027",
+        "1er au 14 février 2027 · billetterie officielle ouverte",
+        "Descentes, slaloms, super-G et géants au cœur de Crans-Montana. Billets et offres d'hospitalité sur la billetterie officielle ; les places du week-end partent vite."
+      ],
+      "en": [
+        "FIS Alpine World Ski Championships 2027",
+        "1 to 14 February 2027 · official ticketing open",
+        "Downhill, slalom, super-G and giant slalom in the heart of Crans-Montana. Tickets and hospitality on the official ticketing site; weekend seats sell fast."
+      ],
+      "de": [
+        "Ski-WM FIS 2027",
+        "1. bis 14. Februar 2027 · offizieller Ticketverkauf offen",
+        "Abfahrt, Slalom, Super-G und Riesenslalom mitten in Crans-Montana. Tickets und Hospitality im offiziellen Ticketshop; Wochenendplätze sind schnell vergriffen."
+      ],
+      "web": "https://cransmontana2027.swiss-ski.ch/shop?shopid=164&language=2"
+    },
+    {
+      "s": "2026-10-29",
+      "e": "2027-04-30",
+      "k": "offer",
+      "fr": [
+        "Afterwork au Sport Club Residences & Spa",
+        "Jusqu'au 30 avril · dès CHF 79 / pers.",
+        "Moment détente en fin de journée au spa du Sport Club. Réservation en ligne."
+      ],
+      "en": [
+        "Afterwork at Sport Club Residences & Spa",
+        "Until 30 April · from CHF 79 pp",
+        "After-work relaxation at the Sport Club spa. Book online."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_f0c0b0e22109547d96ee791179fdaccd",
+      "de": [
+        "Afterwork im Sport Club Residences & Spa",
+        "Bis 30. April · ab CHF 79 p. P.",
+        "Entspannung nach dem Tag im Spa des Sport Club. Online buchbar."
+      ]
+    },
+    {
+      "s": "2026-11-06",
+      "e": "2027-04-30",
+      "k": "offer",
+      "fr": [
+        "Expérience bien-être exclusive pour deux",
+        "Jusqu'au 30 avril · dès CHF 300 pour 2",
+        "Soin bien-être de 2 h pour deux personnes, dès 18 ans."
+      ],
+      "en": [
+        "Exclusive wellness experience for two",
+        "Until 30 April · from CHF 300 for 2",
+        "Two-hour wellness experience for two, age 18+."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_64c01fbce201b46e528cfea10bd84238",
+      "exp": true,
+      "de": [
+        "Exklusives Wellness-Erlebnis zu zweit",
+        "Bis 30. April · ab CHF 300 für 2",
+        "Zweistündiges Wellness-Erlebnis für zwei, ab 18 Jahren."
+      ]
+    },
+    {
+      "s": "2026-10-30",
+      "e": "2026-12-01",
+      "k": "offer",
+      "fr": [
+        "Parenthèse gastronomique dans un étoilé",
+        "Jusqu'au 1er déc. · dès CHF 85 / pers.",
+        "Menu dans un restaurant étoilé de la station, à réserver à l'avance."
+      ],
+      "en": [
+        "Dinner at a Michelin-starred restaurant",
+        "Until 1 Dec · from CHF 85 pp",
+        "Set menu at a Michelin-starred restaurant in the resort, book ahead."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_725aaeebb62d5eb51b7d4c3b9e761881",
+      "exp": true,
+      "de": [
+        "Abendessen im Sternerestaurant",
+        "Bis 1. Dez. · ab CHF 85 p. P.",
+        "Menü in einem Michelin-Sternerestaurant im Ort, bitte im Voraus buchen."
+      ]
+    },
+    {
+      "s": "2026-10-30",
+      "e": "2027-10-29",
+      "k": "offer",
+      "fr": [
+        "Journée bien-être au Spa Flocoon",
+        "Dès CHF 70 / pers.",
+        "Accès au Spa Flocoon by Cinq Mondes pour la journée, dès 18 ans."
+      ],
+      "en": [
+        "Wellness day at Spa Flocoon",
+        "From CHF 70 pp",
+        "Day access to Spa Flocoon by Cinq Mondes, age 18+."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_71e71e9a80551e3853e33bbf042e1fe3",
+      "de": [
+        "Wellnesstag im Spa Flocoon",
+        "Ab CHF 70 p. P.",
+        "Tageseintritt ins Spa Flocoon by Cinq Mondes, ab 18 Jahren."
+      ]
+    },
+    {
+      "s": "2026-10-31",
+      "e": "2026-12-20",
+      "k": "offer",
+      "fr": [
+        "Voyage sensoriel, grands vins valaisans",
+        "Jusqu'au 20 déc. · dès CHF 68 / pers.",
+        "Dégustation guidée de grands vins du Valais, 1 h, dès 18 ans."
+      ],
+      "en": [
+        "Valais wine tasting experience",
+        "Until 20 Dec · from CHF 68 pp",
+        "Guided tasting of fine Valais wines, 1 hour, age 18+."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_9740a2174446772b8f4066a8dc6232d2",
+      "exp": true,
+      "de": [
+        "Sinnesreise durch grosse Walliser Weine",
+        "Bis 20. Dez. · ab CHF 68 p. P.",
+        "Geführte Verkostung grosser Walliser Weine, 1 Stunde, ab 18 Jahren."
+      ]
+    },
+    {
+      "s": "2026-11-01",
+      "e": "2026-12-20",
+      "k": "offer",
+      "fr": [
+        "Expérience culinaire autour d'un thé",
+        "Jusqu'au 20 déc. · dès CHF 69 / pers.",
+        "Menu dégustation accordé avec des thés, environ 3 h."
+      ],
+      "en": [
+        "Tea pairing tasting menu",
+        "Until 20 Dec · from CHF 69 pp",
+        "Tasting menu paired with teas, about 3 hours."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_958a88fa5af5c2d455a87fcde025dcc7",
+      "de": [
+        "Kulinarisches Erlebnis rund um Tee",
+        "Bis 20. Dez. · ab CHF 69 p. P.",
+        "Degustationsmenü mit Teebegleitung, rund 3 Stunden."
+      ]
+    },
+    {
+      "s": "2026-11-07",
+      "e": "2026-11-15",
+      "k": "offer",
+      "fr": [
+        "Parapente et dégustation chez un vigneron",
+        "Jusqu'au 15 nov. · dès CHF 249 pour 2",
+        "Vol en parapente biplace puis dégustation chez un encaveur, environ 4 h, prix pour 2."
+      ],
+      "en": [
+        "Paragliding and winery tasting",
+        "Until 15 Nov · from CHF 249 for 2",
+        "Tandem paragliding flight then a winery tasting, about 4 hours, price for 2."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_6d478e3a27309a442f38c684566e7359",
+      "exp": true,
+      "de": [
+        "Gleitschirmflug und Weinprobe beim Winzer",
+        "Bis 15. Nov. · ab CHF 249 für 2",
+        "Tandem-Gleitschirmflug und anschliessend Weinprobe beim Winzer, rund 4 Stunden, Preis für 2."
+      ]
+    },
+    {
+      "s": "2026-11-01",
+      "e": "2026-11-26",
+      "k": "offer",
+      "fr": [
+        "Yin yoga et voyage sonore",
+        "Jusqu'au 26 nov. · dès CHF 40 / pers.",
+        "Séance de yin yoga suivie d'un bain sonore, 1 h 30, dès 18 ans."
+      ],
+      "en": [
+        "Yin yoga and sound bath",
+        "Until 26 Nov · from CHF 40 pp",
+        "Yin yoga session followed by a sound bath, 1.5 hours, age 18+."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_7932d58ef91de58c2e7aa044db451f35",
+      "de": [
+        "Yin Yoga und Klangreise",
+        "Bis 26. Nov. · ab CHF 40 p. P.",
+        "Yin-Yoga-Stunde mit anschliessender Klangreise, 1,5 Stunden, ab 18 Jahren."
+      ]
+    },
+    {
+      "s": "2026-11-02",
+      "e": "2027-04-04",
+      "k": "offer",
+      "fr": [
+        "Garderie touristique Croc' Montagne",
+        "Dès 18 mois · dès CHF 50 / enfant",
+        "Garde d'enfants pour les vacanciers, dès 18 mois."
+      ],
+      "en": [
+        "Croc' Montagne holiday childcare",
+        "From 18 months · from CHF 50 per child",
+        "Childcare for visiting families, from 18 months."
+      ],
+      "web": "https://www.crans-montana.ch/fr/cart?idcmt=Partenaire_Tomas_14609e565c0ccc2c33a08bd89c49c86a",
+      "de": [
+        "Kinderbetreuung Croc' Montagne",
+        "Ab 18 Monaten · ab CHF 50 pro Kind",
+        "Kinderbetreuung für Feriengäste, ab 18 Monaten."
+      ]
+    },
+    {
+      "s": "2026-10-30",
+      "e": "2026-11-08",
+      "k": "event",
+      "fr": [
+        "Fondation Opale : Emily Kam Kngwarray",
+        "Lens · jusqu'au 8 nov. · mer. à dim. 10h-18h · CHF 14",
+        "Grande rétrospective de l'artiste aborigène Emily Kam Kngwarray (vers 1914-1996) : plus de 80 œuvres sur sa terre ancestrale d'Alhalker, organisée avec la Tate Modern et la National Gallery of Australia. Fermé du 9 novembre au 12 décembre pour le montage de l'exposition suivante. Gratuit pour les moins de 10 ans."
+      ],
+      "en": [
+        "Fondation Opale: Emily Kam Kngwarray",
+        "Lens · until 8 Nov · Wed to Sun 10 am-6 pm · CHF 14",
+        "Major retrospective of Aboriginal artist Emily Kam Kngwarray (c. 1914-1996): more than 80 works about her ancestral land of Alhalker, organised with Tate Modern and the National Gallery of Australia. Closed 9 November to 12 December to install the next exhibition. Free for under-10s."
+      ],
+      "tel": "+41 27 483 46 10",
+      "web": "https://www.fondationopale.ch",
+      "program": [
+        {
+          "d": "2026-11-01",
+          "t": "10:30",
+          "fr": "Atelier créatif pour enfants (jusqu'à 12h)",
+          "en": "Creative workshop for children (until 12 pm)",
+          "de": "Kreativatelier für Kinder (bis 12 Uhr)"
+        },
+        {
+          "d": "2026-11-01",
+          "t": "17:00",
+          "fr": "Let's Doc : « Melodie », film d'Anka Schmid",
+          "en": "Let's Doc: \"Melodie\", film by Anka Schmid",
+          "de": "Let's Doc: «Melodie», Film von Anka Schmid"
+        },
+        {
+          "d": "2026-11-08",
+          "t": "11:00",
+          "fr": "Visite guidée avec la compagnie Les Héros Fourbus",
+          "en": "Guided tour with the Les Héros Fourbus company",
+          "de": "Führung mit der Kompanie Les Héros Fourbus"
+        }
+      ],
+      "de": [
+        "Fondation Opale: Emily Kam Kngwarray",
+        "Lens · bis 8. Nov. · Mi. bis So. 10-18 Uhr · CHF 14",
+        "Grosse Retrospektive der Aborigine-Künstlerin Emily Kam Kngwarray (um 1914-1996): über 80 Werke über ihr Ahnenland Alhalker, organisiert mit der Tate Modern und der National Gallery of Australia. Vom 9. November bis 12. Dezember wegen Aufbau der nächsten Ausstellung geschlossen. Gratis unter 10 Jahren."
+      ]
+    },
+    {
+      "s": "2026-10-30",
+      "e": "2027-04-30",
+      "k": "offer",
+      "fr": [
+        "Cinéma Cinécran",
+        "Rue Centrale · adulte CHF 16, enfant CHF 13",
+        "Salle de 188 places au centre de Crans-Montana."
+      ],
+      "en": [
+        "Cinécran cinema",
+        "Rue Centrale · adults CHF 16, children CHF 13",
+        "188-seat cinema in the centre of Crans-Montana."
+      ],
+      "tel": "+41 27 481 11 12",
+      "web": "https://www.cinecran.com",
+      "prices": {
+        "fr": "Adulte CHF 16 · enfant, AVS, AI CHF 13 · film 3D CHF 17 / 14 · lunettes 3D CHF 3",
+        "en": "Adults CHF 16 · children, seniors CHF 13 · 3D films CHF 17 / 14 · 3D glasses CHF 3",
+        "de": "Erwachsene CHF 16 · Kinder, AHV, IV CHF 13 · 3D-Film CHF 17 / 14 · 3D-Brille CHF 3"
+      },
+      "program": [
+        {
+          "d": "2026-10-30",
+          "t": "19:00",
+          "fr": "Les Misérables",
+          "en": "Les Misérables",
+          "age": 12,
+          "de": "Les Misérables"
+        },
+        {
+          "d": "2026-10-31",
+          "t": "15:30",
+          "fr": "Shaun le mouton : La bêêête d'Halloween",
+          "en": "Shaun the Sheep: The Beast of Mossy Bottom",
+          "age": 0,
+          "de": "Shaun the Sheep: The Beast of Mossy Bottom"
+        },
+        {
+          "d": "2026-10-31",
+          "t": "17:30",
+          "fr": "Les Misérables",
+          "en": "Les Misérables",
+          "age": 12,
+          "de": "Les Misérables"
+        },
+        {
+          "d": "2026-10-31",
+          "t": "21:00",
+          "fr": "Le Fantôme de l'Opéra",
+          "en": "The Phantom of the Opera",
+          "age": 12,
+          "de": "The Phantom of the Opera"
+        },
+        {
+          "d": "2026-11-01",
+          "t": "16:00",
+          "fr": "Pilotes des Glaciers",
+          "en": "Pilotes des Glaciers",
+          "age": 8,
+          "de": "Pilotes des Glaciers"
+        },
+        {
+          "d": "2026-11-01",
+          "t": "17:30",
+          "fr": "Les Misérables",
+          "en": "Les Misérables",
+          "age": 12,
+          "de": "Les Misérables"
+        },
+        {
+          "d": "2026-11-01",
+          "t": "21:00",
+          "fr": "Le Fantôme de l'Opéra",
+          "en": "The Phantom of the Opera",
+          "age": 12,
+          "de": "The Phantom of the Opera"
+        }
+      ],
+      "de": [
+        "Kino Cinécran",
+        "Rue Centrale · Erwachsene CHF 16, Kinder CHF 13",
+        "Kino mit 188 Plätzen im Zentrum von Crans-Montana."
+      ]
+    },
+    {
+      "s": "2026-01-01",
+      "e": "2026-12-31",
+      "k": "outdoor",
+      "fr": [
+        "Promenade des lacs",
+        "Boucle de 7,5 km, forêt et étangs · matins frais, prévoir une veste",
+        "Balade facile en forêt entre les étangs du Haut-Plateau, accessible à pied depuis le centre. Le matin, sol parfois gelé."
+      ],
+      "en": [
+        "Lakes walk",
+        "7.5 km loop through forest and ponds · cold mornings, bring a jacket",
+        "Easy forest walk between the plateau's ponds, reachable on foot from the centre. Ground can be frozen in the morning."
+      ],
+      "de": [
+        "Seenweg",
+        "7,5 km Rundweg durch Wald und Weiher · kühle Morgen, Jacke mitnehmen",
+        "Leichter Waldspaziergang zwischen den Weihern des Hochplateaus, zu Fuss vom Zentrum erreichbar. Morgens kann der Boden gefroren sein."
+      ]
+    },
+    {
+      "s": "2026-01-01",
+      "e": "2026-12-31",
+      "k": "outdoor",
+      "unsure": true,
+      "fr": [
+        "Curling à la halle d'Ycoor",
+        "Réserver la veille · fermeture en novembre à confirmer",
+        "Halle d'Ycoor, à côté du Café d'Ycoor. Session de 2 h avec moniteur et matériel pour débutants. Tarifs de la saison passée : dès CHF 300 la piste."
+      ],
+      "en": [
+        "Curling at Ycoor hall",
+        "Book a day ahead · November closure to be confirmed",
+        "Ycoor hall, next to Café d'Ycoor. Two-hour session with instructor and kit for beginners. Last season's prices: from CHF 300 per lane."
+      ],
+      "tel": "+41 27 565 74 32",
+      "web": "https://www.crans-montana.ch/fr/curling",
+      "de": [
+        "Curling in der Halle Ycoor",
+        "Am Vortag reservieren · Schliessung im November zu bestätigen",
+        "Halle Ycoor, neben dem Café d'Ycoor. Zweistündige Session mit Instruktor und Material für Anfänger. Preise der letzten Saison: ab CHF 300 pro Bahn."
+      ]
+    }
+  ],
+  "countdown": [
+    {
+      "d": "2026-11-28",
+      "fr": [
+        "Préouverture du domaine",
+        "Selon l'enneigement"
+      ],
+      "en": [
+        "Early ski opening",
+        "Snow permitting"
+      ],
+      "de": [
+        "Vorsaison-Öffnung",
+        "Je nach Schneelage"
+      ]
+    },
+    {
+      "d": "2026-12-19",
+      "fr": [
+        "Ouverture générale",
+        "Jusqu'au 4 avril 2027"
+      ],
+      "en": [
+        "Full ski season opens",
+        "Until 4 April 2027"
+      ],
+      "de": [
+        "Volle Saisonöffnung",
+        "Bis 4. April 2027"
+      ]
+    },
+    {
+      "d": "2027-02-01",
+      "fr": [
+        "Championnats du monde FIS",
+        "Du 1er au 14 février 2027"
+      ],
+      "en": [
+        "FIS Alpine World Ski Championships",
+        "1 to 14 February 2027"
+      ],
+      "de": [
+        "Alpine Ski-WM FIS",
+        "1. bis 14. Februar 2027"
+      ]
+    }
+  ],
+  "contact": {
+    "fr": "Office du tourisme",
+    "en": "Tourist office",
+    "tel": "+41 27 485 04 04",
+    "web": "https://www.crans-montana.ch/fr/activites",
+    "de": "Tourismusbüro"
+  },
+  "mountain": [
+    {
+      "icon": "lift",
+      "state": "closed",
+      "fr": [
+        "Remontées",
+        "Ouverture 28 nov.",
+        "Le domaine skiable ouvre le 28 novembre selon l'enneigement, ouverture générale le 19 décembre."
+      ],
+      "en": [
+        "Ski lifts",
+        "Opens 28 Nov",
+        "The ski area opens on 28 November, snow permitting, with full opening on 19 December."
+      ],
+      "rows": [
+        {
+          "fr": "Remontées ouvertes",
+          "en": "Lifts open",
+          "v": "0 / 27",
+          "de": "Offene Anlagen"
+        },
+        {
+          "fr": "Pistes ouvertes",
+          "en": "Runs open",
+          "v": "0 / 41",
+          "de": "Offene Pisten"
+        }
+      ],
+      "web": "https://www.mycma.ch",
+      "de": [
+        "Bergbahnen",
+        "Öffnung 28. Nov.",
+        "Das Skigebiet öffnet am 28. November je nach Schneelage, Vollbetrieb ab 19. Dezember."
+      ]
+    },
+    {
+      "icon": "golf",
+      "state": "open",
+      "unsure": true,
+      "fr": [
+        "Golf",
+        "Fin de saison",
+        "Golf-Club Crans-sur-Sierre. Saison de mai à novembre selon la météo, date de fermeture non annoncée. Créneaux libres en temps réel sur le site de réservation."
+      ],
+      "en": [
+        "Golf",
+        "End of season",
+        "Crans-sur-Sierre Golf Club. Season runs May to November, weather permitting; closing date not announced. Live tee times on the booking site."
+      ],
+      "rows": [
+        {
+          "fr": "Ballesteros, 18 trous (handicap requis)",
+          "en": "Ballesteros, 18 holes (handicap required)",
+          "v": "CHF 50-115",
+          "de": "Ballesteros, 18 Löcher (Handicap erforderlich)"
+        },
+        {
+          "fr": "Jack Nicklaus, 9 trous",
+          "en": "Jack Nicklaus, 9 holes",
+          "v": "CHF 40-52",
+          "de": "Jack Nicklaus, 9 Löcher"
+        },
+        {
+          "fr": "Départs",
+          "en": "First tee",
+          "v": "8h30",
+          "de": "Erster Abschlag"
+        }
+      ],
+      "tel": "+41 27 485 97 97",
+      "web": "https://teetime.golfcrans.ch",
+      "de": [
+        "Golf",
+        "Saisonende",
+        "Golf-Club Crans-sur-Sierre. Saison von Mai bis November je nach Wetter; Schliessungsdatum nicht bekannt. Freie Abschlagzeiten live auf der Buchungsseite."
+      ]
+    },
+    {
+      "icon": "road",
+      "state": "unknown",
+      "unsure": true,
+      "fr": [
+        "Route vers Sierre",
+        "Aucune fermeture",
+        "Descente de Crans-Montana jusqu'à l'entrée de l'autoroute A9 à Sierre. Aucune fermeture annoncée par les sources consultées ce matin. Si vous continuez vers Sion, l'A9 est en travaux entre Sierre-Est et Sion-Est jusqu'à fin novembre environ."
+      ],
+      "en": [
+        "Road to Sierre",
+        "No closure",
+        "Drive down from Crans-Montana to the A9 motorway entrance at Sierre. No closure reported by the sources checked this morning. Heading on to Sion, the A9 has roadworks between Sierre-Est and Sion-Est until about the end of November."
+      ],
+      "rows": [
+        {
+          "fr": "Crans-Montana - Sierre",
+          "en": "Crans-Montana - Sierre",
+          "v": {
+            "fr": "Pas de fermeture signalée",
+            "en": "No closure reported",
+            "de": "Keine Sperrung gemeldet"
+          },
+          "de": "Crans-Montana - Siders"
+        },
+        {
+          "fr": "A9 vers Sion",
+          "en": "A9 towards Sion",
+          "v": {
+            "fr": "Travaux",
+            "en": "Roadworks",
+            "de": "Baustelle"
+          },
+          "de": "A9 Richtung Sitten"
+        }
+      ],
+      "web": "https://www.valais.ch/en/traffic",
+      "de": [
+        "Strasse nach Siders",
+        "Keine Sperrung",
+        "Fahrt von Crans-Montana hinunter zur Autobahneinfahrt A9 in Siders. Laut den heute Morgen geprüften Quellen keine Sperrung. Richtung Sitten: Baustelle auf der A9 zwischen Siders-Ost und Sitten-Ost bis etwa Ende November."
+      ]
+    }
+  ],
+  "restaurants": [
+    {
+      "name": "L'Ours",
+      "tel": "+41 27 485 93 33",
+      "web": "https://www.pasdelours.ch/",
+      "fr": [
+        "Étoile Michelin · 18/20 GaultMillau",
+        "Cuisine française moderne du chef Franck Reynaud, à l'Hostellerie du Pas de l'Ours.",
+        "Midi tous les jours, soir du jeudi au lundi"
+      ],
+      "en": [
+        "Michelin star · 18/20 GaultMillau",
+        "Modern French cuisine by chef Franck Reynaud, at the Hostellerie du Pas de l'Ours.",
+        "Lunch daily, dinner Thursday to Monday"
+      ],
+      "de": [
+        "Michelin-Stern · 18/20 GaultMillau",
+        "Moderne französische Küche von Chefkoch Franck Reynaud in der Hostellerie du Pas de l'Ours.",
+        "Mittags täglich, abends Donnerstag bis Montag"
+      ]
+    },
+    {
+      "name": "LeMontBlanc",
+      "tel": "+41 27 486 60 88",
+      "web": "https://lecrans.com/",
+      "fr": [
+        "Étoile Michelin · 16/20 GaultMillau",
+        "Cuisine française de saison au LeCrans Hotel & Spa, vue sur les Alpes.",
+        "Ouvert tous les jours"
+      ],
+      "en": [
+        "Michelin star · 16/20 GaultMillau",
+        "Seasonal French cuisine at LeCrans Hotel & Spa, with Alpine views.",
+        "Open daily"
+      ],
+      "de": [
+        "Michelin-Stern · 16/20 GaultMillau",
+        "Saisonale französische Küche im LeCrans Hotel & Spa mit Alpenblick.",
+        "Täglich geöffnet"
+      ]
+    },
+    {
+      "name": "Le Partage",
+      "tel": "+41 27 485 41 11",
+      "web": "https://www.aidahotelspa.ch/",
+      "fr": [
+        "14/20 GaultMillau",
+        "Assiettes à partager d'inspiration italienne à l'Aïda Hôtel & Spa.",
+        "Du mercredi au dimanche, fermé lundi et mardi"
+      ],
+      "en": [
+        "14/20 GaultMillau",
+        "Italian-inspired sharing plates at the Aïda Hôtel & Spa.",
+        "Wednesday to Sunday, closed Monday and Tuesday"
+      ],
+      "de": [
+        "14/20 GaultMillau",
+        "Italienisch inspirierte Teller zum Teilen im Aïda Hôtel & Spa.",
+        "Mittwoch bis Sonntag, Montag und Dienstag geschlossen"
+      ]
+    },
+    {
+      "name": "La Maison",
+      "tel": "+41 27 481 27 47",
+      "web": "https://lamaisoncrans.ch",
+      "fr": [
+        "14/20 GaultMillau",
+        "Brasserie élégante et créative avec vue sur le golf.",
+        "Du mercredi au dimanche, horaires à confirmer"
+      ],
+      "en": [
+        "14/20 GaultMillau",
+        "Elegant, creative brasserie overlooking the golf course.",
+        "Wednesday to Sunday, hours to be confirmed"
+      ],
+      "de": [
+        "14/20 GaultMillau",
+        "Elegante, kreative Brasserie mit Blick auf den Golfplatz.",
+        "Mittwoch bis Sonntag, Zeiten zu bestätigen"
+      ]
+    },
+    {
+      "name": "Five",
+      "tel": "+41 27 486 20 00",
+      "web": "https://guardagolf.com/restaurants/",
+      "fr": [
+        "14/20 GaultMillau",
+        "Cuisine libanaise et mezzés à partager au Guarda Golf Hotel.",
+        "Horaires à confirmer auprès de l'hôtel"
+      ],
+      "en": [
+        "14/20 GaultMillau",
+        "Lebanese cuisine and sharing mezze at the Guarda Golf Hotel.",
+        "Hours to be confirmed with the hotel"
+      ],
+      "de": [
+        "14/20 GaultMillau",
+        "Libanesische Küche und Mezze zum Teilen im Guarda Golf Hotel.",
+        "Zeiten beim Hotel zu bestätigen"
+      ]
+    },
+    {
+      "name": "Byakko",
+      "tel": "+41 58 806 20 20",
+      "web": "https://www.sixsenses.com/en/hotels-resorts/europe/switzerland/crans-montana/dining/",
+      "fr": [
+        "14/20 GaultMillau",
+        "Cuisine japonaise et accords saké au Six Senses.",
+        "Ouverture à confirmer auprès de l'hôtel"
+      ],
+      "en": [
+        "14/20 GaultMillau",
+        "Japanese cuisine with sake pairings at Six Senses.",
+        "Opening to be confirmed with the hotel"
+      ],
+      "de": [
+        "14/20 GaultMillau",
+        "Japanische Küche mit Sake-Begleitung im Six Senses.",
+        "Öffnung beim Hotel zu bestätigen"
+      ]
+    },
+    {
+      "name": "Wild Cabin",
+      "tel": "+41 58 806 20 20",
+      "web": "https://www.sixsenses.com/en/hotels-resorts/europe/switzerland/crans-montana/dining/",
+      "fr": [
+        "14/20 GaultMillau",
+        "Brasserie de montagne du Six Senses, terrasse au pied des pistes.",
+        "Ouverture à confirmer auprès de l'hôtel"
+      ],
+      "en": [
+        "14/20 GaultMillau",
+        "Six Senses' mountain brasserie, terrace by the slopes.",
+        "Opening to be confirmed with the hotel"
+      ],
+      "de": [
+        "14/20 GaultMillau",
+        "Bergbrasserie des Six Senses, Terrasse an der Piste.",
+        "Öffnung beim Hotel zu bestätigen"
+      ]
+    }
+  ],
+  "travel": [
+    {
+      "fr": "Aéroport de Genève",
+      "en": "Geneva Airport",
+      "de": "Flughafen Genf",
+      "v": {
+        "fr": "env. 2 h, voiture ou train",
+        "en": "about 2 h, car or train",
+        "de": "ca. 2 Std., Auto oder Zug"
+      }
+    },
+    {
+      "fr": "En train : Sierre, puis funiculaire",
+      "en": "By train: Sierre, then funicular",
+      "de": "Mit dem Zug: Siders, dann Standseilbahn",
+      "v": {
+        "fr": "funiculaire 13 min",
+        "en": "13 min funicular",
+        "de": "13 Min. Standseilbahn"
+      }
+    },
+    {
+      "fr": "Aéroport de Sion (jets privés, hélicoptères)",
+      "en": "Sion Airport (private jets, helicopters)",
+      "de": "Flughafen Sitten (Privatjets, Helikopter)",
+      "v": {
+        "fr": "env. 30 km, 35 min",
+        "en": "about 30 km, 35 min",
+        "de": "ca. 30 km, 35 Min."
+      }
+    },
+    {
+      "fr": "Aéroport de Zurich",
+      "en": "Zurich Airport",
+      "de": "Flughafen Zürich",
+      "v": {
+        "fr": "env. 3 h en voiture",
+        "en": "about 3 h by car",
+        "de": "ca. 3 Std. mit dem Auto"
+      }
+    }
+  ]
+}
